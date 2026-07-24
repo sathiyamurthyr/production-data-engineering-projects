@@ -1,26 +1,27 @@
 # 02 - SQL for Data Engineering
 
-[![Project Status](https://img.shields.io/badge/status-coming%20soon-orange)]()
+[![SQL](https://img.shields.io/badge/sql-postgresql+-blue.svg)]()
+[![License](https://img.shields.io/badge/license-MIT-yellow.svg)]()
 
-> **Project 02 in Production Data Engineering Projects**
+> **Project 02 in Production Data Engineering Projects**  
+> Complete SQL fundamentals course designed specifically for data engineering workflows.
 
 ---
 
-## 📋 Table of Contents
+## 📚 Table of Contents
 
 - [Overview](#-overview)
-- [Business Problem](#-business-problem)
-- [Solution](#-solution)
-- [Architecture](#-architecture)
-- [Folder Structure](#-folder-structure)
-- [Technology Stack](#-technology-stack)
+- [Learning Objectives](#-learning-objectives)
 - [Prerequisites](#-prerequisites)
 - [Installation](#-installation)
-- [Running the Project](#-running-the-project)
-- [Output](#-output)
-- [Performance](#-performance)
-- [Future Improvements](#-future-improvements)
-- [Key Learnings](#-key-learnings)
+- [Project Structure](#-project-structure)
+- [Topics Covered](#-topics-covered)
+- [Running SQL Scripts](#-running-sql-scripts)
+- [Warehouse Concepts](#-warehouse-concepts)
+- [Exercises](#-exercises)
+- [Solutions](#-solutions)
+- [Architecture](#-architecture)
+- [Best Practices](#-best-practices)
 - [Interview Questions](#-interview-questions)
 - [References](#-references)
 
@@ -28,89 +29,36 @@
 
 ## 🎯 Overview
 
-Essential SQL techniques for data engineering workflows. This project covers fundamental SQL operations used in data engineering, including joins, aggregations, subqueries, and common data transformation patterns.
+This project teaches SQL from a **data engineering perspective**, covering essential concepts through real-world examples:
+
+- Building ETL pipelines with SQL
+- Data warehouse modeling (Star/Snowflake schemas)
+- Slowly Changing Dimensions (SCD)
+- Change Data Capture (CDC)
+- Query optimization and performance tuning
+- Data quality validation with SQL
 
 ---
 
-## 💼 Business Problem
+## 🎓 Learning Objectives
 
-Data engineers need to extract, transform, and analyze data efficiently using SQL. Writing performant queries and understanding query execution plans is crucial for building scalable data pipelines.
+By completing this project, you will be able to:
 
----
-
-## 💡 Solution
-
-Learn and implement:
-- SELECT, JOIN, and GROUP BY optimization
-- Subqueries and Common Table Expressions (CTEs)
-- Data modeling fundamentals
-- Query performance tuning
-
----
-
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                 Source Systems                           │
-│              (Databases, APIs, Files)                    │
-├─────────────────────────────────────────────────────────┤
-│                 Processing Layer                         │
-│         (SQL Queries, Views, Stored Procedures)          │
-├─────────────────────────────────────────────────────────┤
-│                 Storage Layer                            │
-│               (Data Warehouse)                           │
-└─────────────────────────────────────────────────────────┘
-```
-
----
-
-## 📁 Folder Structure
-
-```
-02_sql_for_data_engineering/
-├── README.md                    # This file
-├── architecture.md             # System architecture details
-├── design-decisions.md         # Architectural decisions
-├── performance.md              # Performance benchmarks
-├── troubleshooting.md            # Common issues and solutions
-├── interview-questions.md        # Interview preparation
-├── sample-data/                # Sample datasets
-│   ├── raw/                   # Raw input data
-│   └── processed/             # Processed output data
-├── src/                        # Source code
-│   ├── __init__.py
-│   ├── queries/
-│   └── scripts/
-├── tests/                      # Test suite
-│   ├── __init__.py
-│   ├── conftest.py
-│   ├── unit/
-│   └── integration/
-├── images/                     # Architecture diagrams
-├── notebooks/                  # Jupyter notebooks
-└── configs/                    # Configuration files
-    ├── dev.yaml
-    ├── staging.yaml
-    └── prod.yaml
-```
-
----
-
-## 🛠️ Technology Stack
-
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| SQL | - | Query language |
-| PostgreSQL | 15+ | Primary database |
-| SQLite | 3.x | Local testing |
+1. Write production-quality SQL for ETL pipelines
+2. Design star and snowflake schemas for data warehouses
+3. Implement Slowly Changing Dimensions (Type 1, 2, 3)
+4. Build incremental data loading patterns
+5. Optimize queries for large datasets
+6. Validate data quality using SQL
+7. Understand query execution plans and indexing
 
 ---
 
 ## 📦 Prerequisites
 
-- SQL basics
-- PostgreSQL or SQLite installed
+- Basic SQL knowledge
+- PostgreSQL or compatible database (MySQL, SQL Server, Snowflake)
+- Understanding of data modeling concepts
 
 ---
 
@@ -120,60 +68,148 @@ Learn and implement:
 # Navigate to project directory
 cd projects/02_sql_for_data_engineering
 
-# Install dependencies
-pip install -r requirements.txt
+# Load sample data into PostgreSQL
+psql -U postgres -f datasets/*.sql
 ```
 
 ---
 
-## ▶️ Running the Project
+## 📁 Project Structure
+
+```
+02_sql_for_data_engineering/
+├── README.md              # This file
+├── architecture.md        # Star/Snowflake schema diagrams
+├── design-decisions.md    # Modeling decisions
+├── performance.md         # Optimization strategies
+├── troubleshooting.md      # Common issues
+├── interview-questions.md  # Interview prep
+├── requirements.txt        # Dependencies (none - SQL only)
+├── datasets/
+│   ├── customers.sql
+│   ├── orders.sql
+│   ├── products.sql
+│   └── ...
+├── schemas/
+│   ├── star_schema.sql
+│   └── snowflake_schema.sql
+├── scripts/
+│   ├── etl_full_load.sql
+│   ├── etl_incremental.sql
+│   ├── scd_type1.sql
+│   ├── scd_type2.sql
+│   └── scd_type3.sql
+├── queries/
+│   ├── 01_sql_fundamentals.sql
+│   ├── 02_select.sql
+│   ├── 03_where.sql
+│   ├── ...
+│   └── 55_etl_patterns.sql
+├── exercises/
+│   └── ...
+├── solutions/
+│   └── ...
+├── notebooks/
+│   └── ...
+├── images/
+│   └── warehouse_architecture.md
+└── tests/
+    └── sql_validation.sql
+```
+
+---
+
+## 📖 Topics Covered
+
+| # | Topic | Business Use Case |
+|---|-------|-------------------|
+| 01 | SQL Fundamentals | Query basics |
+| 02 | SELECT | Data extraction |
+| 03 | WHERE | Data filtering |
+| 04 | ORDER BY | Sorting results |
+| 05 | LIMIT | Pagination |
+| 06 | DISTINCT | Deduplication |
+| 07 | Aliases | Readable queries |
+| 08 | Aggregate Functions | Metrics calculation |
+| 09 | GROUP BY | Data aggregation |
+| 10 | HAVING | Filtered aggregation |
+| 11 | JOINs | Data integration |
+| 12 | Self Join | Hierarchical data |
+| 13 | Cross Join | Cartesian products |
+| 14 | UNION | Combining results |
+| 15 | UNION ALL | Fast union |
+| 16 | INTERSECT | Common records |
+| 17 | EXCEPT | Difference queries |
+| 18 | CASE | Conditional logic |
+| 19 | NULL Handling | Missing data |
+| 20 | COALESCE | Default values |
+| 21 | CAST | Type conversion |
+| 22 | Subqueries | Nested queries |
+| 23 | CTE | Readable queries |
+| 24 | Recursive CTE | Hierarchies |
+| 25 | Window Functions | Analytics |
+| 26 | Ranking Functions | Top-N queries |
+| 27 | Date Functions | Time series |
+| 28 | String Functions | Data cleaning |
+| 29 | Numeric Functions | Calculations |
+| 30-33 | Views | Abstraction layers |
+| 34-36 | Transactions/ACID | Data integrity |
+| 37-40 | Indexes/Partitioning | Performance |
+| 41-44 | Normalization/Denormalization | Schema design |
+| 45-48 | Star/Snowflake Schema | Warehouse design |
+| 49-52 | Slowly Changing Dimensions | Historical tracking |
+| 53-55 | CDC/Incremental Loading | Real-time sync |
+
+---
+
+## ▶️ Running SQL Scripts
 
 ```bash
-# Run SQL scripts
-python -m src.main
+# Load all datasets
+psql -U postgres -f datasets/*.sql
+
+# Run ETL patterns
+psql -U postgres -f scripts/etl_incremental.sql
 
 # Run tests
-pytest tests/ -v
+psql -U postgres -f tests/sql_validation.sql
 ```
 
 ---
 
-## 📊 Output
+## 🏗️ Architecture
 
-Query results with proper optimization and validation.
-
----
-
-## ⚡ Performance
-
-Performance benchmarks will be documented with implementation.
-
----
-
-## 🚀 Future Improvements
-
-- [ ] Add window function examples
-- [ ] Include query plan analysis
-- [ ] Add materialized view patterns
+```mermaid
+graph TD
+    A[Raw Tables] --> B[Staging Area]
+    B --> C[Slowly Changing Dimensions]
+    C --> D[Fact Tables]
+    C --> E[Dimension Tables]
+    D --> F[Star Schema]
+    E --> F
+```
 
 ---
 
-## 📚 Key Learnings
+## ✅ Best Practices
 
-- Proper indexing strategies
-- Query optimization techniques
-- Data modeling principles
-- SQL performance tuning
+- Use ANSI SQL for portability
+- Implement proper indexing strategies
+- Use CTEs for readable queries
+- Handle NULL values explicitly
+- Use window functions for analytics
+- Implement incremental loading patterns
+- Validate data quality in SQL
 
 ---
 
 ## 🎯 Interview Questions
 
-1. **Explain different JOIN types**: INNER, LEFT, RIGHT, FULL OUTER with examples.
-
-2. **What is a CTE and when to use it?**: Common Table Expressions improve readability.
-
-3. **How do you optimize a slow query?**: Index analysis, query rewrite, execution plans.
+1. **Explain the difference between WHERE and HAVING**
+2. **How do you implement SCD Type 2 in SQL?**
+3. **What are window functions and when to use them?**
+4. **How do you optimize a slow-running query?**
+5. **Explain star schema vs snowflake schema**
 
 ---
 
@@ -181,4 +217,8 @@ Performance benchmarks will be documented with implementation.
 
 - [PostgreSQL Documentation](https://postgresql.org/docs/)
 - [SQL Performance Explained](https://sql-performance-explained.com/)
-- [Modern SQL](https://modern-sql.com/)
+- [The Data Warehouse Toolkit](https://www.kimballgroup.com/)
+
+---
+
+*Production-ready SQL fundamentals for data engineering professionals.*
