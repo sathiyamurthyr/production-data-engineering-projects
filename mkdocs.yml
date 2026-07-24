@@ -1,0 +1,47 @@
+site_name: Production Data Engineering Projects
+site_url: https://sathiyamurthyr.github.io/production-data-engineering-projects
+repo_url: https://github.com/sathiyamurthyr/production-data-engineering-projects
+repo_name: sathiyamurthyr/production-data-engineering-projects
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+  features:
+    - navigation.expand
+    - navigation.indexes
+    - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    - search.highlight
+    - search.share
+    - toc.follow
+
+plugins:
+  - search
+  - minify
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quick Start: getting-started.md
+  - Projects:
+      - Python Fundamentals: projects/01_python_fundamentals/README.md
+      - SQL for Data Engineering: projects/02_sql_for_data_engineering/README.md
+      - Advanced SQL: projects/03_advanced_sql/README.md
+      - Python ETL: projects/04_python_etl/README.md
+      - PySpark Basics: projects/05_pyspark_basics/README.md
+      - Delta Lake: projects/06_delta_lake/README.md
+      - Databricks: projects/07_databricks/README.md
+      - Airflow: projects/08_airflow/README.md
+      - Kafka: projects/09_kafka/README.md
+      - Streaming: projects/10_streaming/README.md
+      - dbt: projects/11_dbt/README.md
+      - Snowflake: projects/12_snowflake/README.md
+  - Documentation:
+      - Architecture: docs/architecture/system.md
+      - Coding Standards: docs/coding-standards/python.md
+      - Best Practices: docs/best-practices/index.md
+  - Roadmap: ROADMAP.md
+  - Contributing: CONTRIBUTING.md

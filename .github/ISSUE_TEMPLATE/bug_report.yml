@@ -1,0 +1,58 @@
+name: Bug Report
+description: Report a bug in the codebase
+title: '[Bug]: '
+labels: ['bug', 'needs-triage']
+assignees: ['sathiyamurthy']
+body:
+  - type: textarea
+    attributes:
+      label: Describe the Bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: A clear description of what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Actual Behavior
+      description: A clear description of what actually happened.
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Environment
+      description: Python version, OS, and relevant package versions.
+      placeholder: 'Python 3.13, Ubuntu 22.04, PySpark 3.5.0'
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here.
+      render: python
+
+  - type: textarea
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+      render: python

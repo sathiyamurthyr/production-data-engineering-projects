@@ -1,0 +1,71 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "sathiyamurthyraghu"
+    labels:
+      - "dependencies"
+      - "github-actions"
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "sathiyamurthyraghu"
+    labels:
+      - "dependencies"
+      - "python"
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "sathiyamurthyraghu"
+    labels:
+      - "dependencies"
+      - "python"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "sathiyamurthyraghu"
+    labels:
+      - "dependencies"
+      - "docker"
+
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    reviewers:
+      - "sathiyamurthyraghu"
+    labels:
+      - "dependencies"
+      - "java"
+
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    reviewers:
+      - "sathiyamurthyraghu"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "terraform"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "sathiyamurthyraghu"
+    labels:
+      - "dependencies"
+      - "terraform"

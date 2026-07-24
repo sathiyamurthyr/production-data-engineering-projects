@@ -1,0 +1,37 @@
+# Code Owners
+# Each line specifies a GitHub team or user who owns code in this repository
+
+# Main repository files
+* @sathiyamurthyraghu
+
+# Projects
+projects/01_python_fundamentals/ @sathiyamurthyraghu
+projects/02_sql_for_data_engineering/ @sathiyamurthyraghu
+projects/03_advanced_sql/ @sathiyamurthyraghu
+projects/04_python_etl/ @sathiyamurthyraghu
+projects/05_pyspark_basics/ @sathiyamurthyraghu
+projects/06_delta_lake/ @sathiyamurthyraghu
+projects/07_databricks/ @sathiyamurthyraghu
+projects/08_airflow/ @sathiyamurthyraghu
+projects/09_kafka/ @sathiyamurthyraghu
+projects/10_streaming/ @sathiyamurthyraghu
+projects/11_dbt/ @sathiyamurthyraghu
+projects/12_snowflake/ @sathiyamurthyraghu
+projects/13_azure_data_factory/ @sathiyamurthyraghu
+projects/14_azure_databricks/ @sathiyamurthyraghu
+projects/15_aws_glue/ @sathiyamurthyraghu
+projects/16_emr/ @sathiyamurthyraghu
+projects/17_redshift/ @sathiyamurthyraghu
+projects/18_data_quality/ @sathiyamurthyraghu
+projects/19_data_governance/ @sathiyamurthyraghu
+projects/20_capstone/ @sathiyamurthyraghu
+
+# Documentation
+docs/ @sathiyamurthyraghu
+
+# CI/CD
+.github/workflows/ @sathiyamurthyraghu
+
+# Configuration
+pyproject.toml @sathiyamurthyraghu
+.pre-commit-config.yaml @sathiyamurthyraghu

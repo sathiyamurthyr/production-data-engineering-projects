@@ -1,0 +1,4 @@
+# Development configuration
+environment: development
+debug: true
+log_level: DEBUG

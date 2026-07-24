@@ -1,0 +1,71 @@
+name: Feature Request
+description: Suggest a new feature or project
+title: '[Feature]: '
+labels: ['enhancement', 'needs-triage']
+assignees: ['sathiyamurthyraghu']
+body:
+  - type: textarea
+    attributes:
+      label: Problem Statement
+      description: Is your feature request related to a problem? Please describe.
+      placeholder: 'I want to ... because ...'
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like to see.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Benefits
+      description: How would this feature benefit users of this repository?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Technical Considerations
+      description: Any technical considerations or constraints?
+      render: python
+
+  - type: textarea
+    attributes:
+      label: Alternatives Considered
+      description: Any alternative solutions or features you've considered?
+      render: python
+
+  - type: dropdown
+    attributes:
+      label: Project Category
+      description: Which category does this feature fit into?
+      options:
+        - Python
+        - SQL
+        - PySpark
+        - Databricks
+        - Delta Lake
+        - Airflow
+        - Kafka
+        - Streaming
+        - dbt
+        - Snowflake
+        - Azure
+        - AWS
+        - Data Quality
+        - Data Governance
+        - Infrastructure
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Priority
+      description: What priority would you assign to this feature?
+      value: 'Medium'
+    validations:
+      required: true
