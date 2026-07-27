@@ -1,0 +1,36 @@
+name: enterprise_analytics
+version: "1.0"
+config-version: 2
+
+profile: enterprise_analytics
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+analysis-paths: ["analyses"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_modules"
+
+models:
+  enterprise_analytics:
+    +materialized: view
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: table
+    marts:
+      +materialized: table
+      finance:
+        +schema: mart_finance
+      marketing:
+        +schema: mart_marketing
+      sales:
+        +schema: mart_sales
+      operations:
+        +schema: mart_operations
+      customer:
+        +schema: mart_customer
