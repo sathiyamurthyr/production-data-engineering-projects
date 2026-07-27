@@ -1,0 +1,4 @@
+# Enterprise Apache Kafka Dependencies
+kafka-python>=2.0.0
+confluent-kafka>=2.0.0
+fastavro>=1.0.0
