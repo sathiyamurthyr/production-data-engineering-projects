@@ -1,0 +1,5 @@
+# Advanced Python for Data Engineering Dependencies
+aiohttp>=3.9.0
+pandas>=2.0.0
+pyyaml>=6.0
+sqlalchemy>=2.0.0
