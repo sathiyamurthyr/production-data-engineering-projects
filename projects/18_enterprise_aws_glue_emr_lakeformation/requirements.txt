@@ -1,0 +1,3 @@
+# Enterprise AWS Dependencies
+boto3>=1.0.0
+awswrangler>=3.0.0
