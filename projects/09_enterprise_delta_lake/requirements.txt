@@ -1,0 +1,3 @@
+# Enterprise Delta Lake Dependencies
+delta-spark>=3.0.0
+pyspark>=4.0.0
