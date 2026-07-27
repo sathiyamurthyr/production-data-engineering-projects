@@ -1,0 +1,4 @@
+# Enterprise Azure Databricks Dependencies
+databricks-sdk>=0.0.0
+pyspark>=4.0.0
+delta-spark>=3.0.0
