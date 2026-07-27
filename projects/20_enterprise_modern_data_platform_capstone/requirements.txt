@@ -1,0 +1,9 @@
+# Enterprise Modern Data Platform Dependencies
+pyspark>=4.0.0
+delta-spark>=3.0.0
+dbt-core>=1.8.0
+apache-airflow>=3.0.0
+kafka-python>=2.0.0
+boto3>=1.0.0
+azure-identity>=1.0.0
+snowflake-connector-python>=3.0.0
