@@ -1,0 +1,3 @@
+# Enterprise Snowflake Dependencies
+snowflake-connector-python>=3.0.0
+snowflake-snowpark-python>=1.0.0
