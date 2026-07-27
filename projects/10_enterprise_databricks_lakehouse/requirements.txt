@@ -1,0 +1,3 @@
+# Enterprise Databricks Lakehouse Dependencies
+pyspark>=4.0.0
+delta-spark>=3.0.0
