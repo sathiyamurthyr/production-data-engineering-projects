@@ -1,0 +1,140 @@
+graph TB
+    subgraph "Enterprise Multi-Cloud Data Platform"
+        
+        subgraph "Platform Layer"
+            Portal[Developer Portal]
+            API[Platform APIs]
+            Catalog[Service Catalog]
+            Templates[Golden Paths]
+        end
+
+        subgraph "Shared Services"
+            subgraph "Identity"
+                ID[Identity Federation]
+                RBAC[Role Mapper]
+                SSO[SSO Provider]
+                AG[Access Governance]
+            end
+
+            subgraph "Governance"
+                PE[Policy Engine]
+                CM[Compliance Manager]
+                CG[Cost Governance]
+                AL[Audit Logger]
+            end
+
+            subgraph "Metadata"
+                MC[Metadata Catalog]
+                DL[Data Lineage]
+                SR[Schema Registry]
+                DS[Discovery Service]
+            end
+
+            subgraph "Networking"
+                NM[Network Manager]
+                CS[Connectivity Service]
+                FP[Firewall Policy]
+                DNS[DNS Service]
+            end
+
+            subgraph "Observability"
+                MTR[Metrics Collector]
+                LGA[Log Aggregator]
+                TRC[Tracing Service]
+                ALM[Alert Manager]
+            end
+
+            subgraph "Automation"
+                AE[Automation Engine]
+                WE[Workflow Engine]
+                TE[Task Executor]
+                SCH[Scheduler]
+            end
+        end
+
+        subgraph "Azure Cloud"
+            AZ_Storage[Blob Storage]
+            AZ_Compute[VM / AKS]
+            AZ_Data[Synapse / Databricks / ADF]
+            AZ_Monitor[Azure Monitor]
+        end
+
+        subgraph "AWS Cloud"
+            AWS_Storage[S3]
+            AWS_Compute[EC2 / EKS]
+            AWS_Data[Glue / EMR / Redshift]
+            AWS_Monitor[CloudWatch]
+        end
+
+        subgraph "Cross-Cloud Connectivity"
+            VPN[Site-to-Site VPN]
+            EXR[Express Route / Direct Connect]
+            PPR[VNet Peering / VPC Peering]
+        end
+
+    end
+
+    Portal --> API
+    API --> Catalog
+    API --> Templates
+    API --> PE
+    API --> AE
+
+    ID --> RBAC
+    ID --> SSO
+    ID --> AG
+    PE --> CM
+    PE --> CG
+    PE --> AL
+
+    MC --> DL
+    MC --> SR
+    DS --> MC
+
+    NM --> CS
+    NM --> FP
+    NM --> DNS
+
+    MTR --> ALM
+    LGA --> ALM
+    TRC --> ALM
+
+    AE --> WE
+    AE --> TE
+    SCH --> AE
+
+    API --> NM
+    API --> AZ_Storage
+    API --> AZ_Compute
+    API --> AZ_Data
+    API --> AWS_Storage
+    API --> AWS_Compute
+    API --> AWS_Data
+
+    AZ_Storage --> MTR
+    AZ_Compute --> MTR
+    AZ_Data --> MTR
+    AWS_Storage --> MTR
+    AWS_Compute --> MTR
+    AWS_Data --> MTR
+
+    AZ_Storage --> VPN
+    AWS_Storage --> VPN
+    AZ_Compute --> EXR
+    AWS_Compute --> EXR
+    AZ_Data --> PPR
+    AWS_Data --> PPR
+
+    AZ_Monitor --> MTR
+    AZ_Monitor --> LGA
+    AWS_Monitor --> MTR
+    AWS_Monitor --> LGA
+```
+
+Diagram Legend:
+- Platform Layer: Entry points for developers and platform APIs
+- Shared Services: Cross-cutting concerns applicable to both clouds
+- Azure Cloud: Azure-specific integrations
+- AWS Cloud: AWS-specific integrations
+- Connectivity: Cross-cloud networking and data transfer
+- Observability: Unified monitoring across clouds
