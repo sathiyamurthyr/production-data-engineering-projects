@@ -1,0 +1,239 @@
+graph TB
+    subgraph "Developer Layer"
+        DEV[Developer Portal]
+        CLI[Platform CLI]
+        SDK[Platform SDK]
+    end
+
+    subgraph "API Gateway Layer"
+        GW[API Gateway]
+        AUTH[Authentication]
+        RBAC[RBAC]
+    end
+
+    subgraph "Platform Services Layer"
+        CAT[Service Catalog]
+        TMPL[Template Engine]
+        PROV[Provisioning Service]
+        GOV[Governance Service]
+    end
+
+    subgraph "Infrastructure Layer"
+        TF[Terraform]
+        K8S[Kubernetes]
+        CLOUD[Cloud Providers]
+    end
+
+    subgraph "Data Layer"
+        PG[(PostgreSQL)]
+        REDIS[(Redis)]
+        VAULT[(Vault)]
+    end
+
+    DEV --> GW
+    CLI --> GW
+    SDK --> GW
+
+    GW --> AUTH
+    AUTH --> RBAC
+    RBAC --> CAT
+    RBAC --> TMPL
+    RBAC --> PROV
+    RBAC --> GOV
+
+    CAT --> PG
+    TMPL --> PG
+    PROV --> PG
+    GOV --> PG
+
+    PROV --> TF
+    TF --> K8S
+    K8S --> CLOUD
+
+    GOV --> VAULT
+    AUTH --> REDIS
+
+    style DEV fill:#4CAF50
+    style GW fill:#2196F3
+    style CAT fill:#FF9800
+    style TMPL fill:#FF9800
+    style PROV fill:#FF9800
+    style GOV fill:#FF9800
+    style TF fill:#9C27B0
+    style K8S fill:#9C27B0
+```
+
+```mermaid
+graph LR
+    subgraph "Self-Service Data Platform"
+        DL[Data Lake]
+        KAFKA[Kafka Topics]
+        AIRFLOW[Airflow DAGs]
+        DATABRICKS[Databricks Workspaces]
+        SNOWFLAKE[Snowflake Warehouses]
+    end
+
+    subgraph "Self-Service AI Platform"
+        ML[ML Projects]
+        AGENTS[AI Agents]
+        FEATURES[Feature Store]
+        MODELS[Model Serving]
+    end
+
+    subgraph "Platform Core"
+        CAT[Service Catalog]
+        TMPL[Golden Paths]
+        PROV[Provisioning]
+        GOV[Governance]
+    end
+
+    CAT --> DL
+    CAT --> KAFKA
+    CAT --> AIRFLOW
+    CAT --> DATABRICKS
+    CAT --> SNOWFLAKE
+    CAT --> ML
+    CAT --> AGENTS
+    CAT --> FEATURES
+    CAT --> MODELS
+
+    TMPL --> DL
+    TMPL --> KAFKA
+    TMPL --> AIRFLOW
+
+    PROV --> DL
+    PROV --> KAFKA
+    PROV --> ML
+
+    GOV --> DL
+    GOV --> KAFKA
+    GOV --> ML
+
+    style CAT fill:#4CAF50
+    style TMPL fill:#2196F3
+    style PROV fill:#FF9800
+    style GOV fill:#F44336
+```
+
+```mermaid
+sequenceDiagram
+    actor Developer
+    participant Portal as Developer Portal
+    participant Auth as Authentication
+    participant Catalog as Service Catalog
+    participant Template as Template Engine
+    participant Policy as Governance
+    participant Provision as Provisioning
+    participant Terraform
+    participant K8s as Kubernetes
+
+    Developer->>Portal: Request new data lake
+    Portal->>Auth: Authenticate user
+    Auth-->>Portal: JWT token
+
+    Portal->>Catalog: Browse templates
+    Catalog-->>Portal: Available templates
+
+    Developer->>Portal: Select "Data Lake" template
+    Portal->>Template: Request template schema
+    Template-->>Portal: Variable schema
+
+    Developer->>Portal: Submit with variables
+    Portal->>Policy: Evaluate policies
+    Policy-->>Portal: Approval required
+
+    Portal->>Provision: Create provisioning request
+    Provision->>Provision: Generate approval request
+    Provision-->>Portal: Approval ID
+
+    Note over Developer,Portal: Approval workflow (GitHub Actions)
+
+    Developer->>Portal: Approved
+    Portal->>Provision: Start provisioning
+    Provision->>Template: Render template
+    Template-->>Provision: Terraform config
+
+    Provision->>Terraform: Apply infrastructure
+    Terraform->>K8s: Deploy resources
+    K8s-->>Terraform: Deployment status
+    Terraform-->>Provision: Outputs
+
+    Provision-->>Portal: Provisioning complete
+    Portal-->>Developer: Resource ready
+```
+
+```mermaid
+graph TB
+    subgraph "Golden Path: Data Lake"
+        START[Start] --> CHOOSE{Choose Template}
+        CHOOSE -->|Data Lake| DL[Data Lake Template]
+        CHOOSE -->|Streaming| STR[Streaming Template]
+        CHOOSE -->|ML Pipeline| ML[ML Template]
+
+        DL --> VARS[Fill Variables]
+        VARS --> POLICY[Policy Check]
+        POLICY -->|Pass| APPROVE{Approval Required?}
+        POLICY -->|Fail| REJECT[Reject]
+
+        APPROVE -->|Yes| WAIT[Wait for Approval]
+        APPROVE -->|No| PROVISION[Provision]
+        WAIT --> PROVISION
+
+        PROVISION --> TERRAFORM[Terraform Apply]
+        TERRAFORM --> DEPLOY[Deploy to K8s]
+        DEPLOY --> MONITOR[Enable Monitoring]
+        MONITOR --> COMPLETE[Complete]
+
+        REJECT --> END[End]
+        COMPLETE --> END
+    end
+
+    style START fill:#4CAF50
+    style COMPLETE fill:#4CAF50
+    style REJECT fill:#F44336
+    style POLICY fill:#FF9800
+    style APPROVE fill:#2196F3
+```
+
+```mermaid
+graph TB
+    subgraph "Multi-Tenant Architecture"
+        TENANT1[Tenant A - Data Team]
+        TENANT2[Tenant B - ML Team]
+        TENANT3[Tenant C - Analytics Team]
+
+        TENANT1 --> NS1[Namespace: data-team]
+        TENANT2 --> NS2[Namespace: ml-team]
+        TENANT3 --> NS3[Namespace: analytics-team]
+
+        NS1 --> QUOTA1[Resource Quota]
+        NS2 --> QUOTA2[Resource Quota]
+        NS3 --> QUOTA3[Resource Quota]
+
+        QUOTA1 --> LIMITS1[CPU/Memory Limits]
+        QUOTA2 --> LIMITS2[CPU/Memory Limits]
+        QUOTA3 --> LIMITS3[CPU/Memory Limits]
+    end
+
+    subgraph "Platform Services"
+        CAT[Service Catalog]
+        PROV[Provisioning]
+        GOV[Governance]
+    end
+
+    CAT --> TENANT1
+    CAT --> TENANT2
+    CAT --> TENANT3
+
+    PROV --> NS1
+    PROV --> NS2
+    PROV --> NS3
+
+    GOV --> QUOTA1
+    GOV --> QUOTA2
+    GOV --> QUOTA3
+
+    style TENANT1 fill:#4CAF50
+    style TENANT2 fill:#2196F3
+    style TENANT3 fill:#FF9800
+    style GOV fill:#F44336
