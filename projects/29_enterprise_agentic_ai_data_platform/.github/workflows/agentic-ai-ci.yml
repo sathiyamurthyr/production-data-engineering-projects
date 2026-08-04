@@ -1,0 +1,80 @@
+name: Enterprise Agentic AI Platform CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'projects/29_enterprise_agentic_ai_data_platform/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'projects/29_enterprise_agentic_ai_data_platform/**'
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test Agentic AI Platform
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+
+    defaults:
+      run:
+        working-directory: projects/29_enterprise_agentic_ai_data_platform
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          python -m pytest tests/ -v --tb=short
+
+      - name: Run type checks
+        run: |
+          python -m mypy agents/ tools/ memory/ knowledge/ apis/ --ignore-missing-imports
+
+      - name: Run linting
+        run: |
+          python -m ruff check agents/ tools/ memory/ knowledge/ apis/ tests/
+
+      - name: Run formatting check
+        run: |
+          python -m black --check agents/ tools/ memory/ knowledge/ apis/ tests/
+
+  validate-docs:
+    name: Validate Documentation
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projects/29_enterprise_agentic_ai_data_platform
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate documentation
+        run: |
+          test -f README.md && echo "README exists"
+          test -f architecture.md && echo "Architecture exists"
+          test -f agent-platform.md && echo "Agent platform exists"
+          test -f governance.md && echo "Governance exists"
+          test -f deployment-guide.md && echo "Deployment guide exists"
+          test -f troubleshooting.md && echo "Troubleshooting exists"
+          test -f interview-questions.md && echo "Interview questions exists"
+
+      - name: Validate Python modules
+        run: |
+          for dir in agents tools memory knowledge apis tests; do
+            find $dir -name "*.py" -exec python -m py_compile {} +
+            echo "Validated: $dir"
+          done
