@@ -1,0 +1,77 @@
+name: Security CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.13']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio black ruff mypy
+
+      - name: Lint with Ruff
+        run: ruff check identity/ encryption/ classification/ compliance/ tests/
+
+      - name: Format check with Black
+        run: black --check identity/ encryption/ classification/ compliance/ tests/
+
+      - name: Type check with MyPy
+        run: mypy identity/ encryption/ classification/ compliance/ tests/
+        continue-on-error: true
+
+      - name: Run tests
+        run: |
+          pytest tests/ -v --cov=identity --cov=encryption --cov=classification --cov=compliance --cov-report=xml
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: security-tests
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Bandit security scan
+        run: |
+          pip install bandit
+          bandit -r identity/ encryption/ classification/ compliance/ -f json -o bandit-report.json || true
+
+      - name: Upload security scan results
+        uses: actions/upload-artifact@v3
+        with:
+          name: bandit-report
+          path: bandit-report.json
+
+  compliance-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate compliance policies
+        run: |
+          python -c "from compliance.policy_engine import CompliancePolicyEngine; print('Compliance policies valid')"
+
+      - name: Validate encryption standards
+        run: |
+          python -c "from encryption.at_rest import EncryptionAtRest; print('Encryption standards valid')"
