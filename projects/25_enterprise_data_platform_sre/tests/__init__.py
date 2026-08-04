@@ -1,0 +1,1 @@
+"""Tests for Enterprise Data Platform SRE."""
