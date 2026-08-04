@@ -1,0 +1,125 @@
+{
+  "dashboard": {
+    "title": "Platform Health Dashboard",
+    "uid": "platform-health",
+    "tags": ["sre", "platform", "health"],
+    "timezone": "browser",
+    "refresh": "30s",
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    }
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Golden Signals Overview",
+      "type": "stat",
+      "gridPos": {"x": 0, "y": 0, "w": 12, "h": 4},
+      "targets": [
+        {
+          "expr": "avg(golden_signal_latency) by (service)",
+          "legendFormat": "{{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "thresholds": {
+            "steps": [
+              {"color": "green", "value": 0},
+              {"color": "yellow", "value": 500},
+              {"color": "red", "value": 1000}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Error Rate",
+      "type": "stat",
+      "gridPos": {"x": 12, "y": 0, "w": 12, "h": 4},
+      "targets": [
+        {
+          "expr": "avg(golden_signal_errors) by (service)",
+          "legendFormat": "{{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "thresholds": {
+            "steps": [
+              {"color": "green", "value": 0},
+              {"color": "yellow", "value": 1},
+              {"color": "red", "value": 5}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title": "Pipeline Success Rate",
+      "type": "gauge",
+      "gridPos": {"x": 0, "y": 4, "w": 8, "h": 4},
+      "targets": [
+        {
+          "expr": "avg(pipeline_success) * 100",
+          "legendFormat": "Success Rate"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "steps": [
+              {"color": "red", "value": 0},
+              {"color": "yellow", "value": 95},
+              {"color": "green", "value": 99}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 4,
+      "title": "Consumer Lag",
+      "type": "timeseries",
+      "gridPos": {"x": 8, "y": 4, "w": 16, "h": 6},
+      "targets": [
+        {
+          "expr": "max(streaming_consumer_lag) by (topic, consumer_group)",
+          "legendFormat": "{{topic}} - {{consumer_group}}"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Infrastructure CPU",
+      "type": "timeseries",
+      "gridPos": {"x": 0, "y": 8, "w": 12, "h": 6},
+      "targets": [
+        {
+          "expr": "avg(infrastructure_cpu) by (component)",
+          "legendFormat": "{{component}}"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Infrastructure Memory",
+      "type": "timeseries",
+      "gridPos": {"x": 12, "y": 8, "w": 12, "h": 6},
+      "targets": [
+        {
+          "expr": "avg(infrastructure_memory) by (component)",
+          "legendFormat": "{{component}}"
+        }
+      ]
+    }
+  ]
+}
