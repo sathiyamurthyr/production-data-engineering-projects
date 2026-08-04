@@ -1,0 +1,356 @@
+# Enterprise Data Platform SRE - Architecture Diagram
+
+```mermaid
+graph TB
+    subgraph "Data Platform Layer"
+        A[Pipelines] 
+        B[Streaming]
+        C[AI/ML]
+        D[Warehouses]
+        E[Data Products]
+    end
+
+    subgraph "Observability Layer"
+        F[Metrics<br/>Prometheus]
+        G[Logs<br/>ELK Stack]
+        H[Traces<br/>OpenTelemetry]
+        I[Events<br/>Kafka]
+    end
+
+    subgraph "SRE Platform Layer"
+        J[Monitoring & Alerting]
+        K[Incident Management]
+        L[Reliability Engineering]
+        M[Automation & Self-Healing]
+        N[Capacity Planning]
+        O[Disaster Recovery]
+        P[Chaos Engineering]
+        Q[Runbooks]
+    end
+
+    subgraph "Infrastructure Layer"
+        R[Kubernetes]
+        S[Cloud]
+        T[Network]
+        U[Storage]
+        V[Security]
+    end
+
+    A --> F
+    B --> F
+    C --> F
+    D --> F
+    E --> F
+
+    F --> J
+    G --> J
+    H --> J
+    I --> J
+
+    J --> K
+    K --> L
+    L --> M
+    M --> N
+    N --> O
+    O --> P
+    P --> Q
+
+    J --> R
+    K --> R
+    L --> R
+    M --> R
+    N --> R
+    O --> R
+    P --> R
+    Q --> R
+
+    R --> S
+    R --> T
+    R --> U
+    R --> V
+```
+
+## Monitoring Architecture
+
+```mermaid
+graph LR
+    subgraph "Data Sources"
+        A[Airflow]
+        B[Kafka]
+        C[Spark]
+        D[Databricks]
+        E[Snowflake]
+    end
+
+    subgraph "Collection"
+        F[Prometheus<br/>Scrapers]
+        G[StatsD]
+        H[OpenTelemetry]
+    end
+
+    subgraph "Storage"
+        I[Prometheus TSDB]
+        J[S3<br/>Long-term]
+        K[PostgreSQL<br/>Metadata]
+    end
+
+    subgraph "Visualization"
+        L[Grafana]
+        M[Custom APIs]
+    end
+
+    subgraph "Alerting"
+        N[AlertManager]
+        O[PagerDuty]
+        P[Slack]
+    end
+
+    A --> F
+    B --> F
+    C --> F
+    D --> F
+    E --> F
+
+    A --> G
+    B --> G
+    C --> G
+
+    A --> H
+    B --> H
+    C --> H
+
+    F --> I
+    G --> I
+    H --> I
+
+    I --> L
+    J --> L
+    K --> M
+
+    L --> N
+    N --> O
+    N --> P
+```
+
+## Golden Signals Flow
+
+```mermaid
+graph TB
+    subgraph "Latency"
+        A[Request Time<br/>p50: 150ms<br/>p95: 500ms<br/>p99: 1000ms]
+    end
+
+    subgraph "Traffic"
+        B[Requests/sec<br/>Current: 1000<br/>Peak: 5000]
+    end
+
+    subgraph "Errors"
+        C[Error Rate<br/>Current: 0.5%<br/>Threshold: 1%]
+    end
+
+    subgraph "Saturation"
+        D[CPU: 75%]
+        E[Memory: 80%]
+        F[Disk: 60%]
+    end
+
+    G[Service] --> A
+    G --> B
+    G --> C
+    G --> D
+    G --> E
+    G --> F
+
+    A --> H[Alert if p99 > 1s]
+    B --> I[Alert if > 10k RPS]
+    C --> J[Alert if > 5%]
+    D --> K[Alert if > 90%]
+    E --> K
+    F --> K
+```
+
+## Incident Management Flow
+
+```mermaid
+sequenceDiagram
+    participant M as Monitoring
+    participant AM as Alert Manager
+    participant IM as Incident Manager
+    participant IC as Incident Commander
+    participant T as Team
+    participant P as Postmortem
+
+    M->>AM: Threshold Breach
+    AM->>AM: Deduplicate & Enrich
+    AM->>IM: Create Incident
+    IM->>IM: Assign Severity
+    IM->>IC: Notify Commander
+    IC->>T: Assemble Team
+    T->>T: Investigate
+    T->>T: Implement Fix
+    T->>IM: Mark Resolved
+    IM->>P: Auto-create Postmortem
+    P->>P: Document & Learn
+```
+
+## SLO Error Budget Flow
+
+```mermaid
+graph LR
+    A[SLO: 99.9%] --> B[Error Budget: 0.1%]
+    B --> C[~43 min/month]
+    
+    D[Current: 99.5%] --> E[Consumed: 0.5%]
+    E --> F[5× Budget]
+    
+    F --> G{Burn Rate}
+    G -->|High| H[Alert & Freeze]
+    G -->|Normal| I[Continue]
+    
+    H --> J[Focus on Reliability]
+    J --> K[Budget Replenishes]
+    K --> I
+```
+
+## Self-Healing Flow
+
+```mermaid
+graph TB
+    A[Health Check] --> B{Healthy?}
+    B -->|Yes| C[Continue]
+    B -->|No| D[Detect Issue]
+    
+    D --> E[Find Strategy]
+    E --> F{Strategy Found?}
+    F -->|No| G[Alert Human]
+    F -->|Yes| H[Check Cooldown]
+    
+    H --> I{In Cooldown?}
+    I -->|Yes| G
+    I -->|No| J[Execute Healing]
+    
+    J --> K{Success?}
+    K -->|Yes| L[Update Health]
+    K -->|No| M[Retry/ Escalate]
+    
+    L --> C
+    M --> G
+```
+
+## Capacity Planning Flow
+
+```mermaid
+graph TB
+    A[Collect Metrics] --> B[Analyze Trends]
+    B --> C[Forecast Growth]
+    C --> D{Predicted > 80%?}
+    
+    D -->|Yes| E[Scale Up]
+    D -->|No| F{Predicted < 30%?}
+    F -->|Yes| G[Scale Down]
+    F -->|No| H[Maintain]
+    
+    E --> I[Implement Changes]
+    G --> I
+    H --> J[Monitor]
+    
+    I --> J
+    J --> A
+```
+
+## Disaster Recovery Flow
+
+```mermaid
+graph TB
+    subgraph "Primary Region"
+        A[Primary DB]
+        B[Primary Cache]
+        C[Primary Queue]
+        D[Primary Storage]
+    end
+    
+    subgraph "Replication"
+        E[Async Replication<br/>30s lag]
+    end
+    
+    subgraph "Secondary Region"
+        F[Secondary DB]
+        G[Secondary Cache]
+        H[Secondary Queue]
+        I[Secondary Storage]
+    end
+    
+    A --> E
+    B --> E
+    C --> E
+    D --> E
+    
+    E --> F
+    E --> G
+    E --> H
+    E --> I
+    
+    J[Health Check<br/>Every 30s] --> K{Failure?}
+    K -->|Yes| L[Failover]
+    K -->|No| M[Continue]
+    
+    L --> N[Promote Secondary]
+    N --> O[Update DNS]
+    O --> P[Scale Up]
+    P --> Q[Validate]
+```
+
+## Chaos Engineering Flow
+
+```mermaid
+graph TB
+    A[Define Hypothesis] --> B[Pre-checks]
+    B --> C{Pass?}
+    C -->|No| D[Abort]
+    C -->|Yes| E[Collect Metrics]
+    
+    E --> F[Inject Chaos]
+    F --> G[Monitor System]
+    G --> H{Stop Condition?}
+    H -->|No| I[Continue]
+    H -->|Yes| J[Stop Chaos]
+    
+    I --> G
+    J --> K[Rollback]
+    K --> L[Validate]
+    L --> M{Success?}
+    M -->|Yes| N[Document Learnings]
+    M -->|No| O[Analyze & Improve]
+    
+    N --> P[Update Runbooks]
+    O --> P
+```
+
+## Alert Routing Flow
+
+```mermaid
+graph TB
+    A[Alert Triggered] --> B{Deduplicate}
+    B -->|Duplicate| C[Suppress]
+    B -->|New| D[Enrich Context]
+    
+    D --> E{Severity}
+    E -->|SEV1| F[Page On-call]
+    E -->|SEV2| G[Notify Team Lead]
+    E -->|SEV3| H[Create Ticket]
+    E -->|SEV4| I[Log Only]
+    
+    F --> J{Acknowledged?}
+    G --> J
+    H --> J
+    
+    J -->|No| K{Escalation Time?}
+    K -->|Yes| L[Escalate]
+    K -->|No| M[Wait]
+    
+    L --> N[Page Manager]
+    M --> J
+    
+    J -->|Yes| O[Investigate]
+    O --> P[Resolve]
+    P --> Q[Postmortem]
