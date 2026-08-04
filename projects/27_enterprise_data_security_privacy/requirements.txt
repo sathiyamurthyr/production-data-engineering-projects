@@ -1,0 +1,73 @@
+"""
+Enterprise Data Security, Privacy, Compliance & Zero Trust
+Python Dependencies
+"""
+
+# Core Framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# Database
+sqlalchemy==2.0.25
+asyncpg==0.29.0
+alembic==1.13.1
+
+# Security & Cryptography
+cryptography==41.0.7
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+pycryptodome==3.20.0
+
+# Identity & Auth
+python-oauth2==1.1.0
+saml2==4.6.0
+python-ldap==3.4.3
+
+# Policy & Compliance
+opa==0.3.0
+pyre2==0.1.0
+
+# Data Protection
+pandas==2.1.4
+pyyaml==6.0.1
+python-dotenv==1.0.1
+
+# Monitoring & Observability
+prometheus-client==0.19.0
+opentelemetry-api==1.22.0
+opentelemetry-sdk==1.22.0
+structlog==23.3.0
+
+# Testing
+pytest==7.4.4
+pytest-asyncio==0.23.3
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+
+# Code Quality
+black==23.12.1
+ruff==0.1.14
+mypy==1.8.0
+
+# Utilities
+httpx==0.26.0
+requests==2.31.0
+tenacity==8.2.3
+cachetools==5.3.3
+python-dateutil==2.8.2
+
+# Machine Learning (for anomaly detection)
+scikit-learn==1.4.0
+numpy==1.26.3
+
+# Documentation
+mkdocs==1.5.3
+mkdocs-material==9.5.3
+
+# Development
+pre-commit==3.6.0
+ipython==8.19.0
+ipdb==0.13.13
