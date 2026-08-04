@@ -1,0 +1,200 @@
+"""
+Platform CI/CD Pipeline
+Enterprise Platform Engineering
+"""
+
+name: Platform CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  PYTHON_VERSION: "3.13"
+  TERRAFORM_VERSION: "1.5.0"
+
+jobs:
+  lint-and-validate:
+    name: Lint & Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install Python dependencies
+        run: |
+          cd projects/26_enterprise_platform_engineering
+          pip install -r requirements.txt
+          pip install black ruff mypy pytest pytest-asyncio
+
+      - name: Run Black (code formatting)
+        run: |
+          black --check platform/ tests/
+
+      - name: Run Ruff (linting)
+        run: |
+          ruff check platform/ tests/
+
+      - name: Run MyPy (type checking)
+        run: |
+          mypy platform/ tests/
+
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    needs: lint-and-validate
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          cd projects/26_enterprise_platform_engineering
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio pytest-cov
+
+      - name: Run tests with coverage
+        run: |
+          cd projects/26_enterprise_platform_engineering
+          pytest tests/ -v --cov=platform --cov-report=xml --cov-report=html
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./projects/26_enterprise_platform_engineering/coverage.xml
+          flags: platform
+          name: platform-coverage
+
+  terraform-validate:
+    name: Terraform Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+
+      - name: Terraform Init
+        run: |
+          cd projects/26_enterprise_platform_engineering/terraform
+          terraform init -backend=false
+
+      - name: Terraform Validate
+        run: |
+          cd projects/26_enterprise_platform_engineering/terraform
+          terraform validate
+
+      - name: Terraform Fmt
+        run: |
+          cd projects/26_enterprise_platform_engineering/terraform
+          terraform fmt -check
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: lint-and-validate
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy security scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: 'projects/26_enterprise_platform_engineering'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  build-and-push:
+    name: Build & Push Images
+    runs-on: ubuntu-latest
+    needs: [test, security-scan]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: platformacrdev.azurecr.io
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build and push platform services
+        run: |
+          docker build -t platformacrdev.azurecr.io/platform/api:latest -f projects/26_enterprise_platform_engineering/Dockerfile projects/26_enterprise_platform_engineering
+          docker push platformacrdev.azurecr.io/platform/api:latest
+
+  deploy-dev:
+    name: Deploy to Dev
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.ref == 'refs/heads/main'
+    environment: development
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+
+      - name: Terraform Init
+        run: |
+          cd projects/26_enterprise_platform_engineering/terraform
+          terraform init
+
+      - name: Terraform Plan
+        run: |
+          cd projects/26_enterprise_platform_engineering/terraform
+          terraform plan -var-file=environments/dev.tfvars -out=tfplan
+
+      - name: Terraform Apply
+        run: |
+          cd projects/26_enterprise_platform_engineering/terraform
+          terraform apply -auto-approve tfplan
+
+      - name: Deploy to AKS
+        uses: azure/k8s-deploy@v4
+        with:
+          manifests: |
+            projects/26_enterprise_platform_engineering/kubernetes/base
+          images: |
+            platformacrdev.azurecr.io/platform/api:latest
+          namespace: platform-system
+
+  notify:
+    name: Notify
+    runs-on: ubuntu-latest
+    needs: deploy-dev
+    if: always()
+    steps:
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v1
+        with:
+          slack-message: |
+            Platform CI/CD Pipeline: ${{ job.status }}
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref }}
+            Commit: ${{ github.sha }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
