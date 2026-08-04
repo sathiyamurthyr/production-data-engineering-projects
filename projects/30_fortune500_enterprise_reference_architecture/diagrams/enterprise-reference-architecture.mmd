@@ -1,0 +1,106 @@
+graph TB
+    subgraph "Fortune 500 Enterprise Data, AI & Platform"
+
+        subgraph "Business Layer"
+            Apps[Enterprise Applications]
+            APIGW[API Gateway]
+            EVT[Event Backbone - Kafka]
+        end
+
+        subgraph "Data Platform"
+            subgraph "Integration"
+                ADF[Azure Data Factory]
+                GLUE[AWS Glue]
+                STREAM[Spark Streaming]
+            end
+
+            subgraph "Lakehouse"
+                BRONZE[Bronze - Raw]
+                SILVER[Silver - Curated]
+                GOLD[Gold - Business Ready]
+                DELTA[Delta Lake / Unity Catalog]
+            end
+
+            subgraph "Warehouse & Analytics"
+                SNOW[Snowflake]
+                DBT[dbt]
+                BI[BI Tools]
+            end
+        end
+
+        subgraph "AI Platform"
+            MLF[MLflow]
+            FS[Feature Store]
+            VEC[Vector Search / RAG]
+            GATE[AI Gateway]
+            AGENT[Agentic AI Platform]
+        end
+
+        subgraph "Platform"
+            IDP[Internal Developer Platform]
+            API[Platform APIs]
+            TERRA[Terraform]
+            CICD[GitHub Actions]
+        end
+
+        subgraph "Cross-Cutting"
+            GOV[Governance]
+            SEC[Security]
+            OBS[Observability]
+            SRE[SRE / Reliability]
+            FINOPS[FinOps]
+        end
+
+        subgraph "Multi-Cloud"
+            AZURE[Azure]
+            AWS[AWS]
+        end
+
+    end
+
+    Apps --> APIGW
+    Apps --> EVT
+    APIGW --> IDP
+    APIGW --> GATE
+
+    EVT --> STREAM
+    ADF --> BRONZE
+    GLUE --> BRONZE
+    STREAM --> BRONZE
+
+    BRONZE --> SILVER --> GOLD
+    DELTA --> BRONZE
+    DELTA --> SILVER
+    DELTA --> GOLD
+
+    GOLD --> SNOW
+    SNOW --> DBT
+    DBT --> BI
+
+    GOLD --> MLF
+    MLF --> FS
+    GOLD --> VEC
+    VEC --> GATE
+    GATE --> AGENT
+    FS --> AGENT
+
+    IDP --> TERRA
+    CICD --> TERRA
+    TERRA --> AZURE
+    TERRA --> AWS
+
+    GOV --> DELTA
+    SEC --> APIGW
+    OBS --> BI
+    SRE --> OBS
+    FINOPS --> AZURE
+    FINOPS --> AWS
+```
+
+Diagram Legend:
+- Business Layer: Applications, APIs, Events
+- Data Platform: Integration → Lakehouse → Warehouse
+- AI Platform: MLflow → Features → RAG → Gateway → Agents
+- Platform: IDP, APIs, IaC, CI/CD
+- Cross-Cutting: Governance, Security, Observability, SRE, FinOps
+- Multi-Cloud: Azure + AWS unified deployment
