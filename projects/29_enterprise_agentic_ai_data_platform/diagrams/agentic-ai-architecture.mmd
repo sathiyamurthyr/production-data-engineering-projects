@@ -1,0 +1,112 @@
+graph TB
+    subgraph "Enterprise Agentic AI Platform"
+        
+        subgraph "Entry Layer"
+            User[Enterprise User]
+            Gateway[AI Gateway]
+        end
+
+        subgraph "Planning Layer"
+            Planner[Planner Agent]
+        end
+
+        subgraph "Orchestration Layer"
+            Orchestrator[Orchestrator Agent]
+        end
+
+        subgraph "Specialized Agents"
+            DataEng[Data Engineer Agent]
+            PlatformEng[Platform Engineer Agent]
+            SRE[SRE Agent]
+            Governance[Governance Agent]
+            Security[Security Agent]
+            Analytics[Analytics Agent]
+            Reviewer[Reviewer Agent]
+        end
+
+        subgraph "Tool Layer"
+            ToolReg[Tool Registry]
+            Airflow[Airflow Tools]
+            Kafka[Kafka Tools]
+            Quality[Data Quality Tools]
+            Platform[Platform Tools]
+        end
+
+        subgraph "Knowledge Layer"
+            Memory[Enterprise Memory]
+            Knowledge[Knowledge Base]
+            Context[Context Management]
+        end
+
+        subgraph "Governance Layer"
+            Approvals[Approval Workflows]
+            Guardrails[AI Guardrails]
+            Audit[Audit Logging]
+        end
+
+        subgraph "Observability"
+            Metrics[Agent Metrics]
+            Tracing[Agent Tracing]
+            Analytics2[Usage Analytics]
+        end
+
+    end
+
+    User --> Gateway
+    Gateway --> Planner
+    Planner --> Orchestrator
+    Orchestrator --> DataEng
+    Orchestrator --> PlatformEng
+    Orchestrator --> SRE
+    Orchestrator --> Governance
+    Orchestrator --> Security
+    Orchestrator --> Analytics
+    Orchestrator --> Reviewer
+
+    DataEng --> ToolReg
+    PlatformEng --> ToolReg
+    SRE --> ToolReg
+    Governance --> ToolReg
+    Security --> ToolReg
+    Analytics --> ToolReg
+
+    ToolReg --> Airflow
+    ToolReg --> Kafka
+    ToolReg --> Quality
+    ToolReg --> Platform
+
+    DataEng --> Memory
+    PlatformEng --> Memory
+    SRE --> Memory
+    Governance --> Memory
+
+    DataEng --> Knowledge
+    PlatformEng --> Knowledge
+    SRE --> Knowledge
+    Analytics --> Knowledge
+
+    Orchestrator --> Approvals
+    Governance --> Approvals
+    Security --> Guardrails
+    Governance --> Guardrails
+
+    Gateway --> Audit
+    Orchestrator --> Audit
+    ToolReg --> Audit
+
+    Gateway --> Metrics
+    Orchestrator --> Metrics
+    ToolReg --> Metrics
+    Memory --> Metrics
+    Knowledge --> Metrics
+```
+
+Diagram Legend:
+- Entry Layer: User interaction and request routing
+- Planning Layer: Task decomposition and planning
+- Orchestration Layer: Agent coordination and delegation
+- Specialized Agents: Domain-specific AI agents
+- Tool Layer: Enterprise tool integration
+- Knowledge Layer: Memory, knowledge, and context
+- Governance Layer: Approvals, guardrails, and audit
+- Observability: Metrics, tracing, and analytics
