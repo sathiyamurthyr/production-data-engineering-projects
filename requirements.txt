@@ -4,7 +4,7 @@
 # Core Data Engineering
 pandas>=2.0.0
 pyspark>=3.5.0
-sqlalchemy>=2.0.0
+sqlalchemy>=2.0.51
 
 # Configuration & Validation
 pydantic>=2.0.0
