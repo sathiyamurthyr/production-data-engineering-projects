@@ -1,0 +1,3 @@
+# Deduplication - Performance
+
+[Performance analysis]
