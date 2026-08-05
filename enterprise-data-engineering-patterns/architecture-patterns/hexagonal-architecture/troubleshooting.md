@@ -1,0 +1,3 @@
+# Hexagonal Architecture - Troubleshooting
+
+[Troubleshooting]
