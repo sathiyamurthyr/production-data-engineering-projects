@@ -1,0 +1,3 @@
+# Encryption - Performance
+
+[Performance analysis]
