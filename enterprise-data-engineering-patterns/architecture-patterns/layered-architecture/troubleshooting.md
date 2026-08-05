@@ -1,0 +1,3 @@
+# Layered Architecture - Troubleshooting
+
+[Troubleshooting]
