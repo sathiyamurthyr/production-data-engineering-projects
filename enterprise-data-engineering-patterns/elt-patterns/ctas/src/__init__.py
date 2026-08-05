@@ -1,0 +1,1 @@
+"""ELT with CTAS pattern."""
