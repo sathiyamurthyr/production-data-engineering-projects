@@ -1,0 +1,3 @@
+# Windowing - Architecture
+
+[Architecture description]
