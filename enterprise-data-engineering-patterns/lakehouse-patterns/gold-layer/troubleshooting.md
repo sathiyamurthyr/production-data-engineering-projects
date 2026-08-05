@@ -1,0 +1,3 @@
+# Gold Layer - Troubleshooting
+
+[Troubleshooting]
