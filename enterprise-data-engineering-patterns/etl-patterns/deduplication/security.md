@@ -1,0 +1,3 @@
+# Deduplication - Security
+
+[Security considerations]
