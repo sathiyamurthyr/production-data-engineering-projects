@@ -1,0 +1,3 @@
+# Validation Pattern - Troubleshooting
+
+[Troubleshooting]
