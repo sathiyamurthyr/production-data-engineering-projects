@@ -1,0 +1,3 @@
+# Similarity Search - Troubleshooting
+
+[Troubleshooting]
