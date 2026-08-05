@@ -1,0 +1,3 @@
+# Checkpointing - Architecture
+
+[Architecture description]
