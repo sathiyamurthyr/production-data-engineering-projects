@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+
+# Coverage
+.coverage
+htmlcov/
+.tox/
+
+# Pytest
+.pytest_cache/
+pytest_cache/
+
+# MyPy
+.mypy_cache/
+
+# Ruff
+.ruff_cache/
+
+# Logs
+*.log
+logs/
+
+# Spark
+.metastore/
+derby.log
+spark-*
+
+# Databricks
+.databricks/
+
+# Local development
+*.tmp
+*.temp
+.DS_Store
