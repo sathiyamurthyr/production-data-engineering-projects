@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+env:
+  PYTHON_VERSION: "3.13"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff black mypy
+      - name: Run ruff
+        run: ruff check .
+      - name: Run black
+        run: black --check .
+      - name: Run mypy
+        run: mypy .
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.13"]
+        pattern-category: [
+          architecture-patterns,
+          etl-patterns,
+          spark-patterns,
+          delta-patterns,
+          streaming-patterns,
+          quality-patterns,
+          metadata-patterns,
+          governance-patterns,
+          observability-patterns,
+          security-patterns,
+        ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run tests for ${{ matrix.pattern-category }}
+        run: |
+          pytest ${{ matrix.pattern-category }}/ --cov --cov-report=xml --tb=short || true
+          pytest ${{ matrix.pattern-category }}/
+
+  benchmark:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run benchmarks
+        run: |
+          python scripts/run_benchmarks.py || true
+
+  validate:
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Check pattern completeness
+        run: |
+          python scripts/validate_patterns.py
