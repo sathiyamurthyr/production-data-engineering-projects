@@ -1,0 +1,3 @@
+# Schema Registry - Troubleshooting
+
+[Troubleshooting]
