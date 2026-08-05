@@ -1,0 +1,3 @@
+# Streams - Architecture
+
+[Architecture description]
