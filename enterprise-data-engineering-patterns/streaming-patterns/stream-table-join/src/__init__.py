@@ -1,0 +1,1 @@
+"""Stream-Table Join pattern."""
