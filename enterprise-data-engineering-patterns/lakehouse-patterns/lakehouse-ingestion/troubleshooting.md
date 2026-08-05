@@ -1,0 +1,3 @@
+# Lakehouse Ingestion - Troubleshooting
+
+[Troubleshooting]
