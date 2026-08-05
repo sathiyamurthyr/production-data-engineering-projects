@@ -1,0 +1,3 @@
+# Unity Catalog - Troubleshooting
+
+[Troubleshooting]
