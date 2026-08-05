@@ -1,0 +1,1 @@
+"""SLO Definition pattern."""
