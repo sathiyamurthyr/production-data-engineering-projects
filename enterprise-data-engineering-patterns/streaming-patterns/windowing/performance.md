@@ -1,0 +1,3 @@
+# Windowing - Performance
+
+[Performance analysis]
