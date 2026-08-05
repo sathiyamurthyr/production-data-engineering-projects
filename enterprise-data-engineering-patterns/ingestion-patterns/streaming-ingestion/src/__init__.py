@@ -1,0 +1,1 @@
+"""Streaming Ingestion pattern."""
