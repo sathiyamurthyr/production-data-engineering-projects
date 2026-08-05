@@ -1,0 +1,29 @@
+# Core
+pydantic>=2.11
+structlog>=25.1
+python-json-logger>=3.2
+
+# Data Processing
+pyspark>=4.0
+pandas>=2.3
+polars>=1.20
+
+# Testing
+pytest>=8.3
+pytest-cov>=6.1
+pytest-mock>=3.14
+
+# Linting & Formatting
+ruff>=0.9
+black>=25.1
+mypy>=1.14
+
+# Benchmarking
+pytest-benchmark>=4.0
+
+# Documentation
+mkdocs>=1.6
+mkdocs-material>=9.6
+
+# Development
+pre-commit>=4.1
