@@ -1,0 +1,3 @@
+# Lakehouse - Operations
+
+[Operational guidance]
