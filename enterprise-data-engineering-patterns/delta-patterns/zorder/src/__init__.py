@@ -1,0 +1,1 @@
+"""ZORDER pattern."""
