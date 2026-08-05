@@ -1,0 +1,3 @@
+# Hybrid Search - Troubleshooting
+
+[Troubleshooting]
