@@ -1,0 +1,3 @@
+# Databricks SQL - Troubleshooting
+
+[Troubleshooting]
