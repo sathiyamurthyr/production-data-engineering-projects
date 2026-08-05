@@ -1,0 +1,1 @@
+"""Referential Integrity pattern."""
