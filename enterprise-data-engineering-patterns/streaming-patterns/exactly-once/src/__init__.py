@@ -1,0 +1,1 @@
+"""Exactly Once Concepts pattern."""
