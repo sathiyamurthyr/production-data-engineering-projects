@@ -1,0 +1,3 @@
+# Snapshot - Architecture
+
+[Architecture description]
