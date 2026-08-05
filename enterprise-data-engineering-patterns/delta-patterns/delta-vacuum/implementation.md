@@ -1,0 +1,3 @@
+# VACUUM - Implementation
+
+[Implementation guide]
