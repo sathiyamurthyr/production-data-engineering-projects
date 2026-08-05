@@ -1,0 +1,3 @@
+# Windowing - Operations
+
+[Operational guidance]
