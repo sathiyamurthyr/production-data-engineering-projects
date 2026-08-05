@@ -1,0 +1,1 @@
+# Kappa Architecture dependencies
