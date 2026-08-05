@@ -1,0 +1,1 @@
+"""Polling CDC pattern."""
