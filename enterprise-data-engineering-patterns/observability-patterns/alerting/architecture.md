@@ -1,0 +1,3 @@
+# Alerting - Architecture
+
+[Architecture description]
