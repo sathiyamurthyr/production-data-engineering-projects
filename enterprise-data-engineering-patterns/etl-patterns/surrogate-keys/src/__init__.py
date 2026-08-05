@@ -1,0 +1,1 @@
+"""Surrogate Keys pattern."""
