@@ -1,0 +1,1 @@
+"""Infrastructure Testing pattern."""
