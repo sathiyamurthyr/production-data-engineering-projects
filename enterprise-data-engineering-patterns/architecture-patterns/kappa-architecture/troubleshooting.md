@@ -1,0 +1,3 @@
+# Kappa Architecture - Troubleshooting
+
+[Troubleshooting]
