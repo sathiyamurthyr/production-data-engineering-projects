@@ -1,0 +1,1 @@
+"""Staging Models pattern."""
