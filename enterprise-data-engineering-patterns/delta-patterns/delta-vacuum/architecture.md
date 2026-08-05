@@ -1,0 +1,3 @@
+# VACUUM - Architecture
+
+[Architecture description]
