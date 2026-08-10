@@ -11,9 +11,10 @@ class StructuredLogger:
         self.name=name; self.json_output=json_output
         self._logger=logging.getLogger(name)
         self._logger.setLevel(getattr(logging,level.upper(),logging.INFO))
-        if not self._logger.handlers:
-            h=logging.StreamHandler(sys.stdout); h.setFormatter(logging.Formatter("%(message)s"))
-            self._logger.addHandler(h)
+        self._logger.handlers.clear()
+        h=logging.StreamHandler(sys.stdout); h.setFormatter(logging.Formatter("%(message)s"))
+        self._logger.addHandler(h)
+        self._logger.propagate=False
     def _log(self, level, msg, **kw):
         entry={"logger":self.name,"level":level,"message":msg,"correlation_id":correlation_id_var.get(),**kw}
         if self.json_output: out=json.dumps(entry,default=str)

@@ -38,8 +38,8 @@ class ConfigGenerator:
 class TemplateEngine:
     def __init__(self): self._templates={}
     def register(self, name, template): self._templates[name]=template
-    def render(self, name, **kwargs):
-        t=self._templates.get(name)
-        if not t: raise ValueError(f"Template '{name}' not found")
+    def render(self, template_name, **kwargs):
+        t=self._templates.get(template_name)
+        if not t: raise ValueError(f"Template '{template_name}' not found")
         return t.format(**kwargs)
 

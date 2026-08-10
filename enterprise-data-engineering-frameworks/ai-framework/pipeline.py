@@ -14,9 +14,9 @@ class PromptRegistry:
     def __init__(self): self._prompts={}
     def register(self, p): self._prompts[p.name]=p
     def get(self, name): return self._prompts.get(name)
-    def render(self, name, **kwargs):
-        p=self._prompts.get(name)
-        if not p: raise ValueError(f"Prompt '{name}' not found")
+    def render(self, prompt_name, **kwargs):
+        p=self._prompts.get(prompt_name)
+        if not p: raise ValueError(f"Prompt '{prompt_name}' not found")
         return p.template.format(**kwargs)
 
 @dataclass
@@ -55,8 +55,9 @@ class Message:
 
 class ConversationMemory:
     def __init__(self, max_messages=100): self._messages=[]; self._max=max_messages
-    def add(self, role, content): self._messages.append(Message(role=role,content=content))
-        if len(self._messages)>self._max: self._messages=self._messages[-self._max:]
+    def add(self, role, content):
+        self._messages.append(Message(role=role, content=content))
+        if len(self._messages) > self._max: self._messages = self._messages[-self._max:]
     def get_history(self): return list(self._messages)
     def clear(self): self._messages.clear()
 

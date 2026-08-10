@@ -33,6 +33,6 @@ class ConfigManager:
         return dict(self._cache)
     def _rebuild(self):
         self._cache={}
-        for s in self._sources: self._cache.update(s.data)
+        for s in reversed(self._sources): self._cache.update(s.data)
         self._dirty=False
 
