@@ -1,0 +1,34 @@
+name: Architectures CI
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'enterprise-reference-architectures/**'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'enterprise-reference-architectures/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: enterprise-reference-architectures
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: pip install pytest pytest-cov pyyaml
+      - name: Run tests
+        run: |
+          find . -type d -name "__pycache__" -exec rm -rf {} +
+          python -m pytest -v --tb=short --cov=./ --cov-report=term-missing --cov-report=xml
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: false

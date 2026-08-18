@@ -1,0 +1,29 @@
+```mermaid
+graph TB
+    subgraph Fraud_Detection["Fraud Detection - Deployment.Mmd"]
+        A["Client Applications"]
+        B["API Gateway"]
+        C["Application Services"]
+        D["Data Platform"]
+        E["Event Streaming"]
+        F["Analytics & AI"]
+        G["Observability"]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    C --> E
+    D --> F
+    C --> G
+    D --> G
+    E --> G
+
+    style A fill:#e1f5fe
+    style B fill:#b3e5fc
+    style C fill:#81d4fa
+    style D fill:#4fc3f7
+    style E fill:#29b6f6
+    style F fill:#0288d1
+    style G fill:#01579b
+```
