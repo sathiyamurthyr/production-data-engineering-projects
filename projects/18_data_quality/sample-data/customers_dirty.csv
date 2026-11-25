@@ -1,0 +1,14 @@
+customer_id,first_name,last_name,email,phone,signup_date,country,status
+C001,John,Doe,john.doe@example.com,+1-555-0199,2026-01-15,USA,ACTIVE
+C002,Jane,Smith,jane.smith@example.com,+1-555-0198,2026-02-20,CAN,ACTIVE
+C002,Jane,Smith,jane.smith@example.com,+1-555-0198,2026-02-20,CAN,ACTIVE
+C003,Alice,,alice.j@example.com,+1-555-0197,2026-03-05,USA,INACTIVE
+C004,Bob,Brown,bob.brown_at_example.com,+44-20-7946-0192,2026-04-12,GBR,ACTIVE
+C005,Charlie,Green,charlie.g@example.com,invalid-phone,2026-05-18,AUS,ACTIVE
+,Null,User,null.user@example.com,+1-555-0000,2026-05-20,USA,ACTIVE
+C006,David,Miller,david.miller@example.com,+1-555-0196,2026-06-01,USA,ACTIVE
+C007,Eva,Davis,eva.davis@example.com,+49-89-123456,2026-06-15,DE,INACTIVE
+C008,Frank,Wilson,frank.w@example.com,+33-1-456789,2026-07-02,FRA,PENDING
+C009,Grace,Taylor,grace.t@example.com,+1-555-0195,2029-12-31,USA,ACTIVE
+C010,Henry,Anderson,,+1-555-0194,2026-07-20,CAN,ACTIVE
+C011,Ivan,Ivanov,ivan@example.com,+7-495-123456,2026-07-21,RUS,INVALID_STATUS

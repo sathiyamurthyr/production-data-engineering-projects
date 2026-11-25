@@ -1,0 +1,70 @@
+[
+  {
+    "query_group": [],
+    "user_group": [],
+    "query_concurrency": 5,
+    "memory_percent_to_use": 50,
+    "query_timeout": 3600000,
+    "concurrency_scaling_mode": "auto",
+    "user_group_wild_card": false,
+    "query_group_wild_card": false,
+    "rules": [
+      {
+        "rule_name": "abort_long_running_queries",
+        "predicate": [
+          {
+            "metric_name": "query_cpu_time",
+            "operator": ">",
+            "value": 1800
+          }
+        ],
+        "action": "abort"
+      },
+      {
+        "rule_name": "hop_medium_queries",
+        "predicate": [
+          {
+            "metric_name": "query_execution_time",
+            "operator": ">",
+            "value": 300
+          }
+        ],
+        "action": "hop"
+      }
+    ]
+  },
+  {
+    "query_group": ["etl_group"],
+    "user_group": ["etl_users"],
+    "query_concurrency": 3,
+    "memory_percent_to_use": 30,
+    "query_timeout": 7200000,
+    "concurrency_scaling_mode": "off",
+    "user_group_wild_card": false,
+    "query_group_wild_card": false,
+    "rules": []
+  },
+  {
+    "query_group": ["adhoc_group"],
+    "user_group": [],
+    "query_concurrency": 8,
+    "memory_percent_to_use": 20,
+    "query_timeout": 600000,
+    "concurrency_scaling_mode": "auto",
+    "user_group_wild_card": false,
+    "query_group_wild_card": false,
+    "rules": [
+      {
+        "rule_name": "restrict_large_scans",
+        "predicate": [
+          {
+            "metric_name": "scan_row_count",
+            "operator": ">",
+            "value": 1000000000
+          }
+        ],
+        "action": "abort"
+      }
+    ]
+  }
+]

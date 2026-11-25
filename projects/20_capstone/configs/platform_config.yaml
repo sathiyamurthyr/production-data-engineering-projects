@@ -1,0 +1,64 @@
+# DataMart Global Platform Config
+project_name: "datamart_global"
+environment: "production"
+
+# Ingestion config
+kafka:
+  bootstrap_servers: ["localhost:9092"]
+  topics:
+    orders: "datamart.orders"
+    events: "datamart.events"
+    financials: "datamart.financials"
+  consumer_group: "capstone_consumer_group"
+  auto_offset_reset: "earliest"
+
+# Local / Delta Lake Medallion paths
+storage:
+  base_path: "d:/engineering-projects/production-data-engineering-projects/projects/20_capstone/data"
+  bronze_path: "d:/engineering-projects/production-data-engineering-projects/projects/20_capstone/data/bronze"
+  silver_path: "d:/engineering-projects/production-data-engineering-projects/projects/20_capstone/data/silver"
+  gold_path: "d:/engineering-projects/production-data-engineering-projects/projects/20_capstone/data/gold"
+  checkpoint_path: "d:/engineering-projects/production-data-engineering-projects/projects/20_capstone/data/_checkpoints"
+
+# Spark Config
+spark:
+  app_name: "DataMartCapstoneProcessor"
+  master: "local[*]"
+  sql:
+    shuffle_partitions: 4
+    extensions: "io.delta.sql.DeltaSparkSessionExtension"
+    catalog:
+      spark_catalog: "org.apache.spark.sql.delta.catalog.DeltaCatalog"
+
+# Snowflake Database settings
+snowflake:
+  account: "xy12345.us-east-1"
+  user: "CAPSTONE_ETL_USER"
+  warehouse: "CAPSTONE_WH"
+  database: "DATAMART_GLOBAL"
+  schema: "GOLD"
+
+# API Serving
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 2
+
+# Alerting
+alerting:
+  slack_webhook_url: "SLACK_WEBHOOK_URL_PLACEHOLDER"
+  email:
+    smtp_server: "smtp.example.com"
+    smtp_port: 587
+    sender: "data-alerts@datamart.com"
+    recipients: ["oncall-de@datamart.com"]
+
+# Data Quality Thresholds
+data_quality:
+  orders:
+    min_quantity: 1
+    max_amount: 10000.0
+    allowed_statuses: ["Completed", "Processing", "Shipped", "Cancelled"]
+  customers:
+    require_email: true
+    valid_countries: ["USA", "UK", "Canada", "Germany", "France", "Japan"]

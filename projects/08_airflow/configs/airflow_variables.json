@@ -1,0 +1,9 @@
+{
+  "etl_config": "{\"source_bucket\": \"s3://production-raw-data-lakehouse\", \"target_bucket\": \"s3://production-curated-data-lakehouse\", \"batch_size\": 25000, \"environment\": \"production\"}",
+  "min_expected_rows": "1000",
+  "max_expected_rows": "1000000",
+  "alert_distribution_list": "[\"data-engineering-oncall@company.com\", \"analytics-leads@company.com\"]",
+  "feature_flags": "{\"enable_data_quality_circuit_breaker\": true, \"enable_slack_notifications\": true, \"use_taskflow_v2\": true}",
+  "finance_db_config": "{\"schema\": \"finance_prod\", \"max_connections\": 20, \"query_timeout_seconds\": 300}",
+  "dynamic_dag_customers": "[{\"customer_id\": \"cust_001\", \"customer_name\": \"Acme Corp\", \"source_schema\": \"acme_source\", \"target_prefix\": \"acme_prod\", \"schedule\": \"0 1 * * *\", \"retries\": 3, \"retry_delay_minutes\": 15, \"alert_emails\": [\"acme-data@acme.com\"], \"batch_size\": 10000, \"enabled\": true}, {\"customer_id\": \"cust_002\", \"customer_name\": \"Globex Industries\", \"source_schema\": \"globex_source\", \"target_prefix\": \"globex_prod\", \"schedule\": \"0 2 * * *\", \"retries\": 2, \"retry_delay_minutes\": 10, \"alert_emails\": [\"data@globex.com\"], \"batch_size\": 50000, \"enabled\": true}]"
+}

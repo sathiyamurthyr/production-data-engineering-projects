@@ -1,0 +1,28 @@
+# Databricks Enterprise Workspace Configuration
+workspace:
+  environment: production
+  host: "https://adb-1234567890123456.7.azuredatabricks.net"
+  region: "us-east-1"
+  cloud_provider: "azure"
+
+unity_catalog:
+  metastore_id: "ms-99887766-5544-3322-1100"
+  catalogs:
+    dev: "dev_catalog"
+    staging: "staging_catalog"
+    prod: "prod_catalog"
+  managed_storage_base: "abfss://unity-catalog-storage@stlakehouseprod.dfs.core.windows.net/"
+
+secret_scopes:
+  default_scope: "prod_data_eng_scope"
+  kv_backend_dns: "https://kv-prod-lakehouse.vault.azure.net/"
+
+dlt_pipelines:
+  storage_location: "abfss://dlt-storage@stlakehouseprod.dfs.core.windows.net/pipelines"
+  target_schema: "gold_reporting"
+
+spark_defaults:
+  spark.sql.adaptive.enabled: "true"
+  spark.databricks.photon.enabled: "true"
+  spark.databricks.delta.optimizeWrite.enabled: "true"
+  spark.databricks.delta.autoCompact.enabled: "true"

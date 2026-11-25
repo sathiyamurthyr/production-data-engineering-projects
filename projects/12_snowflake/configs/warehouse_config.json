@@ -1,0 +1,57 @@
+{
+  "warehouses": [
+    {
+      "name": "COMPUTE_WH",
+      "size": "X-Small",
+      "auto_suspend_seconds": 60,
+      "auto_resume": true,
+      "min_clusters": 1,
+      "max_clusters": 1,
+      "scaling_policy": "STANDARD",
+      "statement_timeout_in_seconds": 3600,
+      "purpose": "General interactive querying and ad-hoc analytics"
+    },
+    {
+      "name": "ETL_WH",
+      "size": "Medium",
+      "auto_suspend_seconds": 120,
+      "auto_resume": true,
+      "min_clusters": 1,
+      "max_clusters": 4,
+      "scaling_policy": "STANDARD",
+      "statement_timeout_in_seconds": 7200,
+      "purpose": "Batch ETL tasks, stream processing, dynamic table refreshes"
+    },
+    {
+      "name": "ANALYTICS_WH",
+      "size": "Large",
+      "auto_suspend_seconds": 300,
+      "auto_resume": true,
+      "min_clusters": 1,
+      "max_clusters": 5,
+      "scaling_policy": "ECONOMY",
+      "statement_timeout_in_seconds": 1800,
+      "purpose": "BI dashboards, complex multi-join analytical queries"
+    }
+  ],
+  "resource_monitors": [
+    {
+      "name": "DAILY_CREDIT_MONITOR",
+      "credit_quota": 50,
+      "frequency": "DAILY",
+      "start_timestamp": "IMMEDIATE",
+      "notify_triggers": [50, 75, 90],
+      "suspend_trigger": 100,
+      "suspend_immediate_trigger": 110
+    },
+    {
+      "name": "MONTHLY_DE_MONITOR",
+      "credit_quota": 1000,
+      "frequency": "MONTHLY",
+      "start_timestamp": "IMMEDIATE",
+      "notify_triggers": [70, 85, 95],
+      "suspend_trigger": 100,
+      "suspend_immediate_trigger": 105
+    }
+  ]
+}

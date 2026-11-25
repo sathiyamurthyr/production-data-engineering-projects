@@ -1,0 +1,6 @@
+product_id,product_name,brand,supplier,stock_quantity,margin_pct
+prod-laptop-01,UltraBook Pro 15,TechCorp,GlobalSupply,45,0.25
+prod-phone-02,SmartPhone X10,MobileTech,AsiaDirect,120,0.30
+prod-audio-05,NoiseCancel Headphones,SoundWorks,EuroImport,85,0.40
+prod-key-09,Mechanical RGB Keyboard,ClickTech,GlobalSupply,200,0.35
+prod-mon-12,4K Curved Monitor 32inch,VisionPlus,AsiaDirect,30,0.20

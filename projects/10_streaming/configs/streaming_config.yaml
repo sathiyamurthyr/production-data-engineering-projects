@@ -1,0 +1,39 @@
+app:
+  name: "ecommerce-streaming-pipeline"
+  environment: "production"
+  spark_master: "local[4]"
+
+spark:
+  shuffle_partitions: 20
+  stop_gracefully_on_shutdown: true
+  state_store:
+    provider: "org.apache.spark.sql.execution.streaming.state.HDFSBackedStateStoreProvider"
+    memory_limit_mb: 512
+
+kafka:
+  bootstrap_servers: "localhost:9092"
+  topics:
+    clicks: "ecommerce.click-events"
+    orders: "ecommerce.order-events"
+    alerts: "ecommerce.fraud-alerts"
+  consumer:
+    starting_offsets: "latest"
+    max_offsets_per_trigger: 10000
+    fail_on_data_loss: false
+
+storage:
+  checkpoint_base_dir: "/tmp/streaming_checkpoints"
+  delta_base_dir: "/tmp/delta_lake"
+  tables:
+    bronze_events: "/tmp/delta_lake/bronze_events"
+    silver_enriched: "/tmp/delta_lake/silver_enriched"
+    gold_metrics: "/tmp/delta_lake/gold_metrics"
+    dlq_late_events: "/tmp/delta_lake/dlq_late_events"
+
+watermark:
+  delay: "15 minutes"
+  time_column: "event_time"
+
+alerting:
+  max_batch_duration_ms: 30000
+  max_lag_ratio: 2.0

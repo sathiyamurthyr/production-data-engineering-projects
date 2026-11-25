@@ -1,0 +1,8 @@
+customer_id,name,email,tier,city,updated_at,is_deleted
+usr-101,Alice Smith,alice.smith@example.com,Gold,New York,2026-03-01T08:00:00Z,false
+usr-102,Bob Jones,bob.j@example.com,Silver,Chicago,2026-03-01T08:00:00Z,false
+usr-103,Charlie Brown,charlie.b@example.com,Bronze,Austin,2026-03-01T08:00:00Z,false
+usr-104,Diana Prince,diana.p@example.com,Gold,Seattle,2026-03-01T08:00:00Z,false
+usr-101,Alice Smith-Johnson,alice.sj@example.com,Platinum,New York,2026-03-02T10:00:00Z,false
+usr-102,Bob Jones,bob.j@example.com,Silver,Chicago,2026-03-02T12:00:00Z,true
+usr-105,Evan Wright,evan.w@example.com,Bronze,Miami,2026-03-02T14:00:00Z,false

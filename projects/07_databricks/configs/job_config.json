@@ -1,0 +1,66 @@
+{
+  "name": "nightly_medallion_etl_workflow",
+  "email_notifications": {
+    "on_failure": [
+      "alerts-data-eng@company.com"
+    ]
+  },
+  "timeout_seconds": 14400,
+  "max_concurrent_runs": 1,
+  "job_clusters": [
+    {
+      "job_cluster_key": "etl_job_cluster",
+      "new_cluster": {
+        "spark_version": "14.3.x-scala2.12",
+        "node_type_id": "Standard_D8s_v3",
+        "num_workers": 4,
+        "runtime_engine": "PHOTON",
+        "spark_conf": {
+          "spark.sql.adaptive.enabled": "true"
+        }
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "task_key": "autoloader_bronze_ingestion",
+      "job_cluster_key": "etl_job_cluster",
+      "notebook_task": {
+        "notebook_path": "/Repos/prod/01_bronze_ingest",
+        "base_parameters": {
+          "environment": "prod"
+        }
+      }
+    },
+    {
+      "task_key": "dlt_silver_pipeline",
+      "depends_on": [
+        {
+          "task_key": "autoloader_bronze_ingestion"
+        }
+      ],
+      "pipeline_task": {
+        "pipeline_id": "dlt-pipeline-uuid-11223344"
+      }
+    },
+    {
+      "task_key": "sql_gold_aggregates",
+      "depends_on": [
+        {
+          "task_key": "dlt_silver_pipeline"
+        }
+      ],
+      "sql_task": {
+        "query": {
+          "query_id": "q_gold_revenue_summary"
+        },
+        "warehouse_id": "wh_serverless_analytics_1"
+      }
+    }
+  ],
+  "schedule": {
+    "quartz_cron_expression": "0 0 1 * * ?",
+    "timezone_id": "UTC",
+    "pause_status": "UNPAUSED"
+  }
+}

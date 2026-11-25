@@ -1,0 +1,11 @@
+product_id,product_name,category,price,stock_quantity,created_at,updated_at
+PROD001,Wireless Noise-Canceling Headphones,Electronics,199.99,150,2026-01-01 00:00:00,2026-01-01 00:00:00
+PROD002,Ergonomic Office Chair,Furniture,249.99,45,2026-01-05 00:00:00,2026-01-10 12:00:00
+PROD003,Stainless Steel Water Bottle,Home & Kitchen,24.99,500,2026-01-10 00:00:00,2026-01-10 00:00:00
+PROD004,Smart Fitness Watch,Electronics,129.99,200,2026-01-15 00:00:00,2026-01-15 00:00:00
+PROD005,Organic Cotton T-Shirt,Apparel,29.99,350,2026-01-20 00:00:00,2026-01-20 00:00:00
+PROD006,Professional Chef Knife,Home & Kitchen,89.99,80,2026-01-25 00:00:00,2026-01-25 00:00:00
+PROD007,Bluetooth Pocket Speaker,Electronics,39.99,300,2026-02-01 00:00:00,2026-02-01 00:00:00
+PROD008,Yoga Mat Non-Slip,Sports & Outdoors,45.00,180,2026-02-05 00:00:00,2026-02-05 00:00:00
+PROD009,Roasted Coffee Beans 1kg,Home & Kitchen,19.99,600,2026-02-10 00:00:00,2026-02-12 08:30:00
+PROD010,Leather Bi-fold Wallet,Apparel,49.99,120,2026-02-15 00:00:00,2026-02-15 00:00:00

@@ -1,0 +1,82 @@
+# Azure DevOps CI/CD Pipeline for Azure Databricks Data Engineering
+# Author: Sathiya Murthy — Data Engineering Diaries
+
+trigger:
+  branches:
+    include:
+      - main
+      - release/*
+  paths:
+    include:
+      - projects/14_azure_databricks/*
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: Databricks-Production-Secrets
+  - name: PYTHON_VERSION
+    value: '3.11'
+  - name: PROJECT_PATH
+    value: 'projects/14_azure_databricks'
+
+stages:
+  - stage: Continuous_Integration
+    displayName: 'Build, Lint & Test'
+    jobs:
+      - job: Lint_And_Unit_Test
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(PYTHON_VERSION)'
+            displayName: 'Set Python Version to $(PYTHON_VERSION)'
+
+          - script: |
+              python -m pip install --upgrade pip
+              pip install pytest pytest-cov flake8 black mypy
+              pip install -r $(PROJECT_PATH)/requirements.txt
+            displayName: 'Install Pipeline Dependencies'
+
+          - script: |
+              flake8 $(PROJECT_PATH)/src --max-line-length=120
+            displayName: 'Run Flake8 Code Quality Scan'
+
+          - script: |
+              pytest $(PROJECT_PATH)/tests/ -v --junitxml=junit/test-results.xml --cov=$(PROJECT_PATH)/src
+            displayName: 'Execute PyTest Unit Suite'
+
+          - task: PublishTestResults@2
+            condition: succeededOrFailed()
+            inputs:
+              testResultsFiles: '**/test-*.xml'
+              testRunTitle: 'Azure Databricks Unit Test Results'
+
+  - stage: Continuous_Deployment
+    displayName: 'Deploy to Azure Databricks Prod'
+    dependsOn: Continuous_Integration
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: Deploy_Asset_Bundle
+        environment: 'Databricks-Production-Env'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: |
+                    curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+                  displayName: 'Install Databricks CLI v2'
+
+                - script: |
+                    cd $(PROJECT_PATH)
+                    databricks bundle deploy --target prod
+                  env:
+                    DATABRICKS_HOST: $(AZURE_DATABRICKS_HOST)
+                    DATABRICKS_CLIENT_ID: $(AZURE_CLIENT_ID)
+                    DATABRICKS_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+                    DATABRICKS_AZURE_TENANT_ID: $(AZURE_TENANT_ID)
+                  displayName: 'Deploy Databricks Asset Bundle (DAB)'

@@ -1,0 +1,30 @@
+[
+  {
+    "user_id": "CUST01",
+    "name": "Alice Smith",
+    "email": "alice@example.com",
+    "signup_date": "2026-01-15",
+    "is_active": true
+  },
+  {
+    "user_id": "CUST02",
+    "name": "Bob Jones",
+    "email": "bob@example.com",
+    "signup_date": "2026-02-20",
+    "is_active": true
+  },
+  {
+    "user_id": "CUST03",
+    "name": "Charlie Brown",
+    "email": "charlie@example.com",
+    "signup_date": "2026-03-10",
+    "is_active": false
+  },
+  {
+    "user_id": "CUST04",
+    "name": "Diana Prince",
+    "email": "diana@example.com",
+    "signup_date": "2026-04-05",
+    "is_active": true
+  }
+]

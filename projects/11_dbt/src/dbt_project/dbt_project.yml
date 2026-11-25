@@ -1,0 +1,55 @@
+name: 'production_analytics'
+version: '1.0.0'
+config-version: 2
+
+profile: 'production_analytics'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+vars:
+  current_tax_rate: 0.08
+  min_order_date: '2020-01-01'
+  sales_categories: ['Electronics', 'Apparel', 'Home & Kitchen', 'Books', 'Sports']
+
+models:
+  production_analytics:
+    staging:
+      +materialized: view
+      +schema: staging
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+    marts:
+      sales:
+        +materialized: table
+        +schema: sales
+      analytics:
+        +materialized: table
+        +schema: analytics
+
+seeds:
+  production_analytics:
+    +schema: seeds
+    country_codes:
+      +column_types:
+        country_code: varchar(2)
+        country_name: varchar(100)
+        region: varchar(50)
+    product_categories:
+      +column_types:
+        category_id: varchar(50)
+        category_name: varchar(100)
+        department: varchar(100)
+
+snapshots:
+  production_analytics:
+    +schema: snapshots

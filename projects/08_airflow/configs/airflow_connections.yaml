@@ -1,0 +1,44 @@
+# Airflow Connection Export File
+# Import into Airflow CLI via:
+# airflow connections import configs/airflow_connections.yaml
+
+postgres_finance_db:
+  conn_type: postgres
+  description: "Production Finance Data Warehouse Connection"
+  host: postgres-dw.internal
+  schema: finance_db
+  login: airflow_worker
+  port: 5432
+  extra:
+    sslmode: require
+    connect_timeout: 10
+
+http_custom_api:
+  conn_type: http
+  description: "ERP REST API Gateway Connection"
+  host: https://api.erp.company.com
+  login: api_service_account
+  extra:
+    api_version: v2
+    header_auth_prefix: Bearer
+    timeout_seconds: 30
+
+aws_s3_lakehouse:
+  conn_type: aws
+  description: "AWS S3 Data Lakehouse Access"
+  extra:
+    region_name: us-east-1
+    role_arn: arn:aws:iam::123456789012:role/AirflowWorkerS3ExecutionRole
+
+slack_webhook_default:
+  conn_type: http
+  description: "Slack Alerting Webhook"
+  host: SLACK_WEBHOOK_URL_PLACEHOLDER
+  extra:
+    channel: "#data-pipeline-alerts"
+
+fs_default:
+  conn_type: fs
+  description: "Local File System Mount Hook"
+  extra:
+    path: /opt/airflow/dags/data

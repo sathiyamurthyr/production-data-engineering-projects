@@ -1,0 +1,140 @@
+{
+  "name": "PL_Incremental_Watermark_Copy",
+  "properties": {
+    "description": "Incremental delta copy pipeline using SQL watermark control table pattern",
+    "parameters": {
+      "TableName": {
+        "type": "String",
+        "defaultValue": "Orders"
+      }
+    },
+    "variables": {
+      "OldWatermark": {
+        "type": "String"
+      },
+      "NewWatermark": {
+        "type": "String"
+      }
+    },
+    "activities": [
+      {
+        "name": "LookupOldWatermark",
+        "type": "Lookup",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.00:15:00",
+          "retry": 2,
+          "retryIntervalInSeconds": 10
+        },
+        "typeProperties": {
+          "source": {
+            "type": "AzureSqlSource",
+            "sqlReaderQuery": "SELECT WatermarkValue FROM config.WatermarkTable WHERE TableName = '@{pipeline().parameters.TableName}'"
+          },
+          "dataset": {
+            "referenceName": "SqlWatermarkDS",
+            "type": "DatasetReference"
+          },
+          "firstRowOnly": true
+        }
+      },
+      {
+        "name": "LookupNewWatermark",
+        "type": "Lookup",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.00:15:00",
+          "retry": 2,
+          "retryIntervalInSeconds": 10
+        },
+        "typeProperties": {
+          "source": {
+            "type": "AzureSqlSource",
+            "sqlReaderQuery": "SELECT MAX(updated_at) AS NewWatermarkValue FROM dbo.Orders"
+          },
+          "dataset": {
+            "referenceName": "SqlSourceDS",
+            "type": "DatasetReference"
+          },
+          "firstRowOnly": true
+        }
+      },
+      {
+        "name": "IncrementalCopyData",
+        "type": "Copy",
+        "dependsOn": [
+          {
+            "activity": "LookupOldWatermark",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "LookupNewWatermark",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.02:00:00",
+          "retry": 3,
+          "retryIntervalInSeconds": 30
+        },
+        "typeProperties": {
+          "source": {
+            "type": "AzureSqlSource",
+            "sqlReaderQuery": "SELECT * FROM dbo.Orders WHERE updated_at > '@{activity('LookupOldWatermark').output.firstRow.WatermarkValue}' AND updated_at <= '@{activity('LookupNewWatermark').output.firstRow.NewWatermarkValue}'"
+          },
+          "sink": {
+            "type": "ParquetSink",
+            "storeSettings": {
+              "type": "AzureBlobFSWriteSettings"
+            }
+          }
+        },
+        "inputs": [
+          {
+            "referenceName": "SqlSourceDS",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "ParquetSinkDS",
+            "type": "DatasetReference"
+          }
+        ]
+      },
+      {
+        "name": "UpdateWatermarkTable",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "IncrementalCopyData",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "storedProcedureName": "config.usp_UpdateWatermark",
+          "storedProcedureParameters": {
+            "TableName": {
+              "value": "@pipeline().parameters.TableName",
+              "type": "String"
+            },
+            "NewWatermark": {
+              "value": "@activity('LookupNewWatermark').output.firstRow.NewWatermarkValue",
+              "type": "DateTime"
+            }
+          }
+        },
+        "linkedServiceName": {
+          "referenceName": "AzureSqlLS",
+          "type": "LinkedServiceReference"
+        }
+      }
+    ]
+  }
+}

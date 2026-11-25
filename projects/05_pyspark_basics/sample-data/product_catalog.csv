@@ -1,0 +1,31 @@
+product_id,product_name,category,subcategory,brand,sku,unit_cost,unit_price,stock_qty,reorder_point,is_active,supplier_id,weight_kg,warranty_months
+P201,Laptop Pro 15,Electronics,Computers,TechBrand,TB-LP15-001,800.00,1200.00,45,10,true,SUP001,2.1,24
+P202,Wireless Mouse,Electronics,Peripherals,ClickMaster,CM-WM-002,10.00,25.00,200,50,true,SUP002,0.1,12
+P203,Office Chair,Furniture,Seating,ErgoSeat,ES-OC-003,180.00,350.00,30,5,true,SUP003,12.5,24
+P204,Standing Desk,Furniture,Desks,DeskPro,DP-SD-004,280.00,600.00,20,3,true,SUP003,35.0,36
+P205,USB Hub 7-Port,Electronics,Peripherals,HubTech,HT-UH-005,12.00,30.00,300,75,true,SUP002,0.2,12
+P206,Monitor 27inch,Electronics,Displays,ViewMax,VM-M27-006,220.00,400.00,40,8,true,SUP001,5.8,36
+P207,Ergonomic Keyboard,Electronics,Peripherals,TypeRight,TR-EK-007,35.00,80.00,150,30,true,SUP002,0.8,12
+P208,Desk Lamp LED,Furniture,Lighting,BrightSpace,BS-DL-008,20.00,45.00,120,25,true,SUP004,0.6,12
+P209,Headphones BT,Electronics,Audio,SoundWave,SW-HB-009,65.00,150.00,80,15,true,SUP005,0.3,12
+P210,Webcam 4K,Electronics,Peripherals,VisionPro,VP-WC-010,55.00,120.00,60,12,true,SUP002,0.2,12
+P211,Bookshelf 5Tier,Furniture,Storage,SpaceMax,SM-BS-011,85.00,180.00,25,5,true,SUP004,18.0,12
+P212,Printer LaserJet,Electronics,Printers,PrintFast,PF-LJ-012,160.00,350.00,20,4,true,SUP001,8.5,24
+P213,Filing Cabinet,Furniture,Storage,OfficePro,OP-FC-013,100.00,220.00,15,3,true,SUP004,22.0,12
+P214,Tablet 10inch,Electronics,Computers,TechBrand,TB-T10-014,140.00,300.00,50,10,true,SUP001,0.5,12
+P215,Cable Mgmt Kit,Electronics,Accessories,CablePro,CP-CM-015,5.00,15.00,400,100,true,SUP002,0.3,12
+P216,Conference Chair,Furniture,Seating,ErgoSeat,ES-CC-016,130.00,280.00,25,5,true,SUP003,13.0,24
+P217,Smart Speaker,Electronics,Audio,SoundWave,SW-SS-017,45.00,100.00,90,20,true,SUP005,0.8,12
+P218,Whiteboard 60x36,Furniture,Office,BoardPro,BP-WB-018,55.00,120.00,30,6,true,SUP004,4.5,12
+P219,Docking Station,Electronics,Peripherals,HubTech,HT-DS-019,80.00,180.00,45,10,true,SUP002,0.6,24
+P220,Gaming Chair,Furniture,Seating,GamerSeat,GS-GC-020,220.00,500.00,18,4,true,SUP003,16.0,24
+P221,SSD 1TB,Electronics,Storage,SpeedDrive,SD-S1-021,50.00,100.00,120,25,true,SUP001,0.08,36
+P222,RAM 32GB Kit,Electronics,Components,MemMax,MM-R32-022,55.00,120.00,80,15,true,SUP001,0.15,36
+P223,Monitor Stand,Furniture,Accessories,DeskPro,DP-MS-023,28.00,60.00,100,20,true,SUP004,1.2,12
+P224,Mechanical Keyboard,Electronics,Peripherals,TypeRight,TR-MK-024,80.00,180.00,70,15,true,SUP002,1.1,24
+P225,Desk Organizer,Furniture,Accessories,OfficePro,OP-DO-025,15.00,35.00,200,50,true,SUP004,0.4,12
+P226,Laptop Stand,Furniture,Accessories,DeskPro,DP-LS-026,25.00,55.00,150,30,true,SUP004,0.7,12
+P227,External GPU,Electronics,Components,TechBrand,TB-EG-027,200.00,450.00,15,3,true,SUP001,0.9,12
+P228,VR Headset,Electronics,Immersive,VisionPro,VP-VR-028,280.00,600.00,12,2,true,SUP005,0.7,12
+P229,3D Mouse,Electronics,Peripherals,ClickMaster,CM-3M-029,40.00,90.00,40,8,false,SUP002,0.2,12
+P230,Ergonomic Mat,Furniture,Accessories,ErgoSeat,ES-EM-030,18.00,40.00,180,40,true,SUP003,0.8,12

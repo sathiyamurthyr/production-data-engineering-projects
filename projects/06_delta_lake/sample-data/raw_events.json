@@ -1,0 +1,10 @@
+{"event_id": "evt-001", "user_id": "usr-101", "event_type": "click", "timestamp": "2026-03-01T10:00:00Z", "device": "mobile", "amount": 0.0, "payload": "{\"page\": \"home\", \"duration\": 15}"}
+{"event_id": "evt-002", "user_id": "usr-102", "event_type": "purchase", "timestamp": "2026-03-01T10:05:00Z", "device": "desktop", "amount": 149.99, "payload": "{\"item_id\": \"prod-88\", \"qty\": 1}"}
+{"event_id": "evt-003", "user_id": "usr-101", "event_type": "purchase", "timestamp": "2026-03-01T10:15:00Z", "device": "mobile", "amount": 29.50, "payload": "{\"item_id\": \"prod-12\", \"qty": 2}"}
+{"event_id": "evt-004", "user_id": "usr-103", "event_type": "signup", "timestamp": "2026-03-01T10:20:00Z", "device": "tablet", "amount": 0.0, "payload": "{\"source\": \"referral\"}"}
+{"event_id": "evt-005", "user_id": "usr-104", "event_type": "click", "timestamp": "2026-03-01T10:30:00Z", "device": "desktop", "amount": 0.0, "payload": "{\"page\": \"pricing\", \"duration\": 45}"}
+{"event_id": "evt-006", "user_id": "usr-102", "event_type": "refund", "timestamp": "2026-03-01T11:00:00Z", "device": "desktop", "amount": -149.99, "payload": "{\"reason\": \"defective\"}"}
+{"event_id": "evt-007", "user_id": "usr-105", "event_type": "purchase", "timestamp": "2026-03-01T11:15:00Z", "device": "mobile", "amount": 499.00, "payload": "{\"item_id\": \"prod-99\", \"qty\": 1}"}
+{"event_id": "evt-001", "user_id": "usr-101", "event_type": "click", "timestamp": "2026-03-01T10:00:00Z", "device": "mobile", "amount": 0.0, "payload": "{\"page\": \"home\", \"duration\": 15}"}
+{"event_id": "evt-008", "user_id": "usr-106", "event_type": "search", "timestamp": "2026-03-01T11:30:00Z", "device": "mobile", "amount": 0.0, "payload": "{\"query\": \"delta lake book\"}"}
+{"event_id": "evt-009", "user_id": "usr-103", "event_type": "purchase", "timestamp": "2026-03-01T12:00:00Z", "device": "tablet", "amount": 75.25, "payload": "{\"item_id\": \"prod-04\", \"qty\": 3}"}

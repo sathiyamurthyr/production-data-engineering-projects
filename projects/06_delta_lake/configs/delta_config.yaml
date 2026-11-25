@@ -1,0 +1,79 @@
+# ==============================================================================
+# Delta Lake Enterprise Configuration Matrix
+# Project: 06_delta_lake | Data Engineering Diaries
+# ==============================================================================
+
+app:
+  name: "DeltaLakeEnterprisePipeline"
+  environment: "development"
+  log_level: "WARN"
+
+spark:
+  master: "local[*]"
+  warehouse_dir: "./spark-warehouse"
+  sql:
+    extensions: "io.delta.sql.DeltaSparkSessionExtension"
+    catalog: "org.apache.spark.sql.delta.catalog.DeltaCatalog"
+    shuffle_partitions: 4  # Reduced for local execution (default 200 in prod)
+    default_format: "delta"
+  delta:
+    # Optimistic concurrency control retry settings
+    max_commits_to_retry: 10
+    # Enable Change Data Feed by default on newly created tables
+    enable_cdf_by_default: false
+    # Automatic compaction during writes (recommended for streaming ingest)
+    auto_optimize_auto_compact: true
+    # Optimized write layout for small files
+    auto_optimize_optimize_write: true
+
+lakehouse:
+  storage_root: "./delta_lakehouse_data"
+  layers:
+    bronze:
+      table_name: "bronze_raw_events"
+      path: "./delta_lakehouse_data/bronze/events"
+      format: "delta"
+      checkpoint_path: "./delta_lakehouse_data/bronze/_checkpoints/events"
+      retention_days: 30
+      schema_evolution: "addNewColumns"
+      enable_cdf: true
+
+    silver:
+      table_name: "silver_cleaned_events"
+      path: "./delta_lakehouse_data/silver/events"
+      format: "delta"
+      checkpoint_path: "./delta_lakehouse_data/silver/_checkpoints/events"
+      retention_days: 90
+      z_order_cols:
+        - "user_id"
+        - "event_type"
+      enable_cdf: true
+      deduplication_keys:
+        - "event_id"
+
+    gold:
+      table_name: "gold_user_daily_metrics"
+      path: "./delta_lakehouse_data/gold/user_daily_metrics"
+      format: "delta"
+      retention_days: 365
+      z_order_cols:
+        - "event_date"
+        - "user_id"
+      enable_cdf: false
+
+maintenance:
+  vacuum:
+    retention_hours: 168  # 7 days default
+    zero_retention_override: false # Requires spark.databricks.delta.vacuum.parallelDelete.enabled or retention check override
+  optimize:
+    file_size_bytes: 134217728 # 128 MB target file size
+    z_order_enabled: true
+
+constraints:
+  enforce_not_null:
+    - "event_id"
+    - "timestamp"
+    - "user_id"
+  check_constraints:
+    - name: "valid_amount"
+      expression: "amount >= 0.0"

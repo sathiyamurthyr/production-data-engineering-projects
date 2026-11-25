@@ -1,0 +1,101 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GlueServiceAccess",
+      "Effect": "Allow",
+      "Action": [
+        "glue:GetDatabase",
+        "glue:GetDatabases",
+        "glue:CreateDatabase",
+        "glue:UpdateDatabase",
+        "glue:DeleteDatabase",
+        "glue:GetTable",
+        "glue:GetTables",
+        "glue:CreateTable",
+        "glue:UpdateTable",
+        "glue:DeleteTable",
+        "glue:GetPartition",
+        "glue:GetPartitions",
+        "glue:BatchCreatePartition",
+        "glue:BatchDeletePartition",
+        "glue:BatchGetPartition",
+        "glue:StartCrawler",
+        "glue:StopCrawler",
+        "glue:GetCrawler",
+        "glue:GetCrawlers",
+        "glue:CreateCrawler",
+        "glue:UpdateCrawler",
+        "glue:DeleteCrawler",
+        "glue:StartJobRun",
+        "glue:GetJobRun",
+        "glue:GetJobRuns",
+        "glue:BatchStopJobRun",
+        "glue:GetJob",
+        "glue:GetJobs",
+        "glue:CreateJob",
+        "glue:UpdateJob",
+        "glue:DeleteJob",
+        "glue:CreateTrigger",
+        "glue:UpdateTrigger",
+        "glue:DeleteTrigger",
+        "glue:GetTrigger",
+        "glue:GetTriggers",
+        "glue:StartTrigger",
+        "glue:StopTrigger",
+        "glue:CreateWorkflow",
+        "glue:UpdateWorkflow",
+        "glue:DeleteWorkflow",
+        "glue:GetWorkflow",
+        "glue:GetWorkflowRun",
+        "glue:StartWorkflowRun",
+        "glue:EvaluateDataQuality"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "S3DataBucketAccess",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:ListBucket",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": [
+        "arn:aws:s3:::data-engineering-diaries-glue-demo",
+        "arn:aws:s3:::data-engineering-diaries-glue-demo/*"
+      ]
+    },
+    {
+      "Sid": "CloudWatchLoggingAccess",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogStreams"
+      ],
+      "Resource": [
+        "arn:aws:logs:*:*:log-group:/aws-glue/*"
+      ]
+    },
+    {
+      "Sid": "CloudWatchMetricsAccess",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:PutMetricData"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "SNSAlertingAccess",
+      "Effect": "Allow",
+      "Action": [
+        "sns:Publish"
+      ],
+      "Resource": "arn:aws:sns:us-east-1:123456789012:GlueJobAlerts"
+    }
+  ]
+}

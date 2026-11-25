@@ -1,0 +1,38 @@
+{
+  "account_id": 102938,
+  "project_id": 847291,
+  "name": "Production Daily Analytics Refresh & Test",
+  "execute_steps": [
+    "dbt deps",
+    "dbt seed",
+    "dbt snapshot",
+    "dbt run",
+    "dbt test",
+    "dbt docs generate"
+  ],
+  "job_type": "scheduled",
+  "triggers": {
+    "github_webhook": true,
+    "git_provider_webhook": true,
+    "schedule": true
+  },
+  "schedule": {
+    "cron": "0 4 * * *",
+    "date": {
+      "type": "every_day"
+    },
+    "time": {
+      "type": "every_hour",
+      "interval": 24
+    }
+  },
+  "settings": {
+    "threads": 8,
+    "target_name": "prod"
+  },
+  "execution": {
+    "timeout_seconds": 3600
+  },
+  "generate_docs": true,
+  "run_generate_sources": true
+}

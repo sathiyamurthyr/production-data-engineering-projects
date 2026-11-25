@@ -1,0 +1,8 @@
+customer_id,first_name,last_name,email,gender,country,signup_date,is_active
+101,John,Doe,john.doe@example.com,M,USA,2025-01-15,true
+102,Jane,Smith,jane.smith@example.com,F,Canada,2025-02-20,true
+103,Bob,Johnson,bob.j@example.com,M,USA,2025-03-10,true
+104,Alice,Williams,alice.w@example.com,F,UK,2025-04-05,false
+105,Charlie,Brown,charlie.b@example.com,M,USA,2025-05-12,true
+106,Eva,Green,eva.g@example.com,F,France,2025-06-18,true
+107,David,Wilson,david.w@example.com,M,Australia,2025-07-22,true

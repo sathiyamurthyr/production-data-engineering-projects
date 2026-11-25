@@ -1,0 +1,26 @@
+customer_id,first_name,last_name,email,city,state,country,signup_date,customer_segment,credit_limit
+CUST001,Alexander,Wright,alexander.wright@example.com,New York,NY,USA,2024-01-15,ENTERPRISE,50000.00
+CUST002,Sophia,Martinez,sophia.martinez@example.com,Los Angeles,CA,USA,2024-02-20,PREMIUM,15000.00
+CUST003,Liam,Johnson,liam.johnson@example.com,Chicago,IL,USA,2024-03-10,STANDARD,5000.00
+CUST004,Olivia,Brown,olivia.brown@example.com,Houston,TX,USA,2024-03-25,PREMIUM,20000.00
+CUST005,Ethan,Davis,ethan.davis@example.com,San Francisco,CA,USA,2024-04-05,ENTERPRISE,75000.00
+CUST006,Ava,Wilson,ava.wilson@example.com,Miami,FL,USA,2024-04-18,STANDARD,3000.00
+CUST007,Noah,Taylor,noah.taylor@example.com,Seattle,WA,USA,2024-05-01,PREMIUM,12000.00
+CUST008,Emma,Anderson,emma.anderson@example.com,Austin,TX,USA,2024-05-12,ENTERPRISE,60000.00
+CUST009,Jackson,Thomas,jackson.thomas@example.com,Denver,CO,USA,2024-06-02,STANDARD,4000.00
+CUST010,Isabella,Jackson,isabella.jackson@example.com,Boston,MA,USA,2024-06-19,PREMIUM,18000.00
+CUST011,Lucas,White,lucas.white@example.com,Atlanta,GA,USA,2024-07-04,STANDARD,5000.00
+CUST012,Mia,Harris,mia.harris@example.com,Dallas,TX,USA,2024-07-15,ENTERPRISE,80000.00
+CUST013,Benjamin,Martin,benjamin.martin@example.com,San Diego,CA,USA,2024-08-01,PREMIUM,10000.00
+CUST014,Charlotte,Thompson,charlotte.thompson@example.com,Phoenix,AZ,USA,2024-08-20,STANDARD,2500.00
+CUST015,Henry,Garcia,henry.garcia@example.com,Philadelphia,PA,USA,2024-09-05,PREMIUM,14000.00
+CUST016,Amelia,Martinez,amelia.martinez@example.com,San Jose,CA,USA,2024-09-22,ENTERPRISE,100000.00
+CUST017,Sebastian,Robinson,sebastian.robinson@example.com,Detroit,MI,USA,2024-10-10,STANDARD,3500.00
+CUST018,Harper,Clark,harper.clark@example.com,Minneapolis,MN,USA,2024-10-28,PREMIUM,16000.00
+CUST019,Jack,Rodriguez,jack.rodriguez@example.com,Portland,OR,USA,2024-11-04,STANDARD,4500.00
+CUST020,Evelyn,Lewis,evelyn.lewis@example.com,Las Vegas,NV,USA,2024-11-19,ENTERPRISE,55000.00
+CUST021,Daniel,Lee,daniel.lee@example.com,Tampa,FL,USA,2024-12-01,PREMIUM,11000.00
+CUST022,Abigail,Walker,abigail.walker@example.com,Raleigh,NC,USA,2024-12-15,STANDARD,3000.00
+CUST023,Matthew,Hall,matthew.hall@example.com,Salt Lake City,UT,USA,2025-01-08,PREMIUM,17500.00
+CUST024,Emily,Allen,emily.allen@example.com,Nashville,TN,USA,2025-01-20,STANDARD,5000.00
+CUST025,James,Young,james.young@example.com,Charlotte,NC,USA,2025-02-01,ENTERPRISE,90000.00

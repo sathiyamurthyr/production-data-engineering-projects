@@ -1,0 +1,130 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "factoryName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the Azure Data Factory instance"
+      },
+      "defaultValue": "adf-data-engineering-prod"
+    },
+    "KeyVaultLS_baseUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure Key Vault Base URL"
+      },
+      "defaultValue": "https://kv-data-eng-prod.vault.azure.net/"
+    },
+    "ADLSGen2LS_url": {
+      "type": "string",
+      "metadata": {
+        "description": "ADLS Gen2 DFS Endpoint URL"
+      },
+      "defaultValue": "https://stdataengprod.dfs.core.windows.net/"
+    }
+  },
+  "variables": {
+    "factoryId": "[resourceId('Microsoft.DataFactory/factories', parameters('factoryName'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.DataFactory/factories",
+      "apiVersion": "2018-06-01",
+      "name": "[parameters('factoryName')]",
+      "location": "[resourceGroup().location]",
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "publicNetworkAccess": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.DataFactory/factories/linkedservices",
+      "apiVersion": "2018-06-01",
+      "name": "[concat(parameters('factoryName'), '/KeyVaultLS')]",
+      "dependsOn": [
+        "[variables('factoryId')]"
+      ],
+      "properties": {
+        "type": "AzureKeyVault",
+        "typeProperties": {
+          "baseUrl": "[parameters('KeyVaultLS_baseUrl')]"
+        },
+        "description": "Key Vault connection for production secrets"
+      }
+    },
+    {
+      "type": "Microsoft.DataFactory/factories/linkedservices",
+      "apiVersion": "2018-06-01",
+      "name": "[concat(parameters('factoryName'), '/ADLSGen2LS')]",
+      "dependsOn": [
+        "[variables('factoryId')]"
+      ],
+      "properties": {
+        "type": "AzureBlobFS",
+        "typeProperties": {
+          "url": "[parameters('ADLSGen2LS_url')]",
+          "authenticationType": "ManagedIdentity"
+        },
+        "description": "ADLS Gen2 storage using Managed Identity"
+      }
+    },
+    {
+      "type": "Microsoft.DataFactory/factories/datasets",
+      "apiVersion": "2018-06-01",
+      "name": "[concat(parameters('factoryName'), '/ParquetSinkDS')]",
+      "dependsOn": [
+        "[concat(parameters('factoryName'), '/linkedservices/ADLSGen2LS')]"
+      ],
+      "properties": {
+        "type": "Parquet",
+        "linkedServiceName": {
+          "referenceName": "ADLSGen2LS",
+          "type": "LinkedServiceReference"
+        },
+        "typeProperties": {
+          "location": {
+            "type": "AzureBlobFSLocation",
+            "fileSystem": "gold",
+            "folderPath": "sales/curated"
+          },
+          "compressionCodec": "snappy"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.DataFactory/factories/pipelines",
+      "apiVersion": "2018-06-01",
+      "name": "[concat(parameters('factoryName'), '/PL_Copy_BlobToADLS')]",
+      "dependsOn": [
+        "[concat(parameters('factoryName'), '/datasets/ParquetSinkDS')]"
+      ],
+      "properties": {
+        "description": "Production Copy Activity Pipeline from Blob to ADLS Gen2",
+        "activities": [
+          {
+            "name": "CopyBlobToADLSActivity",
+            "type": "Copy",
+            "typeProperties": {
+              "source": {
+                "type": "DelimitedTextSource"
+              },
+              "sink": {
+                "type": "ParquetSink"
+              },
+              "dataIntegrationUnits": 8
+            },
+            "outputs": [
+              {
+                "referenceName": "ParquetSinkDS",
+                "type": "DatasetReference"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: "Star-schema fact table containing transactional order measures and incremental updates."
+    columns:
+      - name: order_key
+        description: "Surrogate primary key for order record."
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Natural order ID."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to dim_customers."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+      - name: total_amount
+        description: "Total net transaction amount charged to customer."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+
+  - name: dim_customers
+    description: "Customer dimension containing customer profiles, RFM metrics, and regional metadata."
+    columns:
+      - name: customer_key
+        description: "Surrogate primary key for customer dimension."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Natural customer identifier."
+        tests:
+          - unique
+          - not_null
+      - name: customer_segment
+        description: "Categorical tier based on spend thresholds."
+        tests:
+          - accepted_values:
+              values: ['VIP Customer', 'Regular Customer', 'Low-Value Customer', 'Prospect (No Orders)']
+
+  - name: dim_products
+    description: "Product dimension containing catalog metadata, cost structures, and units sold."
+    columns:
+      - name: product_key
+        description: "Surrogate primary key for product dimension."
+        tests:
+          - unique
+          - not_null
+      - name: product_id
+        description: "Natural product identifier."
+        tests:
+          - unique
+          - not_null
+      - name: unit_price
+        description: "Standard retail price per unit."
+        tests:
+          - not_null

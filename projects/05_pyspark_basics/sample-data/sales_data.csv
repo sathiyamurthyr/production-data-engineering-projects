@@ -1,0 +1,101 @@
+sale_id,order_date,customer_id,product_id,product_name,category,region,salesperson,quantity,unit_price,discount_pct,total_amount,status
+S001,2024-01-03,C101,P201,Laptop Pro 15,Electronics,North,Alice Johnson,1,1200.00,5,1140.00,Completed
+S002,2024-01-05,C102,P202,Wireless Mouse,Electronics,South,Bob Smith,3,25.00,0,75.00,Completed
+S003,2024-01-07,C103,P203,Office Chair,Furniture,East,Carol White,2,350.00,10,630.00,Completed
+S004,2024-01-09,C104,P204,Standing Desk,Furniture,West,David Brown,1,600.00,0,600.00,Shipped
+S005,2024-01-11,C105,P205,USB Hub 7-Port,Electronics,North,Alice Johnson,5,30.00,0,150.00,Completed
+S006,2024-01-13,C106,P206,Monitor 27inch,Electronics,South,Bob Smith,2,400.00,8,736.00,Completed
+S007,2024-01-15,C107,P207,Ergonomic Keyboard,Electronics,East,Carol White,4,80.00,5,304.00,Completed
+S008,2024-01-17,C108,P208,Desk Lamp LED,Furniture,West,David Brown,6,45.00,0,270.00,Completed
+S009,2024-01-19,C109,P209,Headphones BT,Electronics,North,Eve Davis,1,150.00,10,135.00,Completed
+S010,2024-01-21,C110,P210,Webcam 4K,Electronics,South,Frank Miller,2,120.00,0,240.00,Returned
+S011,2024-01-23,C101,P201,Laptop Pro 15,Electronics,North,Alice Johnson,1,1200.00,5,1140.00,Completed
+S012,2024-01-25,C111,P211,Bookshelf 5Tier,Furniture,East,Carol White,1,180.00,0,180.00,Completed
+S013,2024-01-27,C112,P212,Printer LaserJet,Electronics,West,David Brown,1,350.00,5,332.50,Shipped
+S014,2024-01-29,C113,P213,Filing Cabinet,Furniture,North,Alice Johnson,2,220.00,0,440.00,Completed
+S015,2024-02-01,C114,P214,Tablet 10inch,Electronics,South,Bob Smith,3,300.00,10,810.00,Completed
+S016,2024-02-03,C115,P215,Cable Mgmt Kit,Electronics,East,Eve Davis,10,15.00,0,150.00,Completed
+S017,2024-02-05,C116,P216,Conference Chair,Furniture,West,Frank Miller,4,280.00,5,1064.00,Completed
+S018,2024-02-07,C117,P217,Smart Speaker,Electronics,North,Alice Johnson,2,100.00,0,200.00,Completed
+S019,2024-02-09,C118,P218,Whiteboard 60x36,Furniture,South,Bob Smith,1,120.00,0,120.00,Completed
+S020,2024-02-11,C119,P219,Docking Station,Electronics,East,Carol White,1,180.00,10,162.00,Completed
+S021,2024-02-13,C120,P220,Gaming Chair,Furniture,West,David Brown,1,500.00,0,500.00,Shipped
+S022,2024-02-15,C101,P202,Wireless Mouse,Electronics,North,Alice Johnson,2,25.00,0,50.00,Completed
+S023,2024-02-17,C121,P221,SSD 1TB,Electronics,South,Frank Miller,5,100.00,5,475.00,Completed
+S024,2024-02-19,C122,P222,RAM 32GB Kit,Electronics,East,Eve Davis,2,120.00,0,240.00,Completed
+S025,2024-02-21,C123,P223,Monitor Stand,Furniture,West,David Brown,3,60.00,0,180.00,Completed
+S026,2024-02-23,C124,P224,Mechanical Keyboard,Electronics,North,Alice Johnson,1,180.00,10,162.00,Completed
+S027,2024-02-25,C125,P225,Desk Organizer,Furniture,South,Bob Smith,4,35.00,0,140.00,Completed
+S028,2024-02-27,C126,P226,Laptop Stand,Furniture,East,Carol White,2,55.00,5,104.50,Completed
+S029,2024-03-01,C127,P227,External GPU,Electronics,West,David Brown,1,450.00,0,450.00,Completed
+S030,2024-03-03,C128,P228,VR Headset,Electronics,North,Eve Davis,1,600.00,5,570.00,Shipped
+S031,2024-03-05,C129,P229,3D Mouse,Electronics,South,Frank Miller,1,90.00,0,90.00,Completed
+S032,2024-03-07,C130,P230,Ergonomic Mat,Furniture,East,Carol White,5,40.00,0,200.00,Completed
+S033,2024-03-09,C131,P201,Laptop Pro 15,Electronics,West,David Brown,2,1200.00,8,2208.00,Completed
+S034,2024-03-11,C132,P206,Monitor 27inch,Electronics,North,Alice Johnson,1,400.00,0,400.00,Completed
+S035,2024-03-13,C133,P203,Office Chair,Furniture,South,Bob Smith,3,350.00,10,945.00,Completed
+S036,2024-03-15,C134,P231,Projector HD,Electronics,East,Eve Davis,1,700.00,5,665.00,Completed
+S037,2024-03-17,C135,P232,Drawing Tablet,Electronics,West,Frank Miller,1,250.00,0,250.00,Completed
+S038,2024-03-19,C136,P233,Smart Plug 4pk,Electronics,North,Alice Johnson,3,50.00,0,150.00,Completed
+S039,2024-03-21,C137,P234,UPS Battery,Electronics,South,Bob Smith,2,130.00,5,247.00,Returned
+S040,2024-03-23,C138,P235,Wi-Fi Router 6E,Electronics,East,Carol White,1,220.00,0,220.00,Completed
+S041,2024-03-25,C139,P204,Standing Desk,Furniture,West,David Brown,2,600.00,10,1080.00,Completed
+S042,2024-03-27,C140,P236,Laptop Bag 15in,Furniture,North,Eve Davis,3,50.00,0,150.00,Completed
+S043,2024-03-29,C141,P237,KVM Switch 4p,Electronics,South,Frank Miller,1,160.00,0,160.00,Completed
+S044,2024-04-01,C142,P238,NAS Drive 4TB,Electronics,East,Carol White,1,380.00,5,361.00,Completed
+S045,2024-04-03,C143,P239,Thunderbolt Hub,Electronics,West,David Brown,1,200.00,0,200.00,Completed
+S046,2024-04-05,C144,P240,Desk Fan,Furniture,North,Alice Johnson,4,40.00,0,160.00,Completed
+S047,2024-04-07,C145,P201,Laptop Pro 15,Electronics,South,Bob Smith,1,1200.00,5,1140.00,Shipped
+S048,2024-04-09,C146,P241,Label Maker,Electronics,East,Eve Davis,2,60.00,0,120.00,Completed
+S049,2024-04-11,C147,P242,Video Capture,Electronics,West,Frank Miller,1,140.00,10,126.00,Completed
+S050,2024-04-13,C148,P209,Headphones BT,Electronics,North,Alice Johnson,2,150.00,0,300.00,Completed
+S051,2024-04-15,C149,P243,Ring Light 18in,Electronics,South,Bob Smith,2,75.00,5,142.50,Completed
+S052,2024-04-17,C150,P244,Mic Studio USB,Electronics,East,Carol White,1,160.00,0,160.00,Completed
+S053,2024-04-19,C101,P245,Camera Mirrorless,Electronics,West,David Brown,1,1500.00,0,1500.00,Completed
+S054,2024-04-21,C151,P246,Tripod Carbon,Electronics,North,Eve Davis,1,120.00,5,114.00,Completed
+S055,2024-04-23,C152,P206,Monitor 27inch,Electronics,South,Frank Miller,3,400.00,8,1104.00,Completed
+S056,2024-04-25,C153,P247,Smart Watch,Electronics,East,Carol White,1,350.00,0,350.00,Completed
+S057,2024-04-27,C154,P248,Air Purifier,Furniture,West,David Brown,1,280.00,10,252.00,Completed
+S058,2024-04-29,C155,P249,Coffee Maker,Furniture,North,Alice Johnson,1,90.00,0,90.00,Completed
+S059,2024-05-01,C156,P250,Mini Fridge,Furniture,South,Bob Smith,1,180.00,5,171.00,Completed
+S060,2024-05-03,C157,P201,Laptop Pro 15,Electronics,East,Carol White,1,1200.00,5,1140.00,Returned
+S061,2024-05-05,C158,P251,Power Bank 20K,Electronics,West,David Brown,3,50.00,0,150.00,Completed
+S062,2024-05-07,C159,P252,Phone Stand,Furniture,North,Eve Davis,6,20.00,0,120.00,Completed
+S063,2024-05-09,C160,P253,Cable USB-C 3pk,Electronics,South,Frank Miller,5,18.00,0,90.00,Completed
+S064,2024-05-11,C161,P254,Screen Cleaner,Electronics,East,Carol White,10,12.00,0,120.00,Completed
+S065,2024-05-13,C162,P255,Mouse Pad XL,Furniture,West,David Brown,4,25.00,5,95.00,Completed
+S066,2024-05-15,C163,P209,Headphones BT,Electronics,North,Alice Johnson,1,150.00,10,135.00,Completed
+S067,2024-05-17,C164,P256,Desk Calendar,Furniture,South,Bob Smith,3,22.00,0,66.00,Completed
+S068,2024-05-19,C165,P257,Pen Holder,Furniture,East,Eve Davis,5,18.00,0,90.00,Completed
+S069,2024-05-21,C166,P258,Sticky Notes,Furniture,West,Frank Miller,20,8.00,0,160.00,Completed
+S070,2024-05-23,C167,P259,Stapler Heavy,Furniture,North,Alice Johnson,2,30.00,0,60.00,Completed
+S071,2024-05-25,C168,P260,Scissors Pro,Furniture,South,Bob Smith,4,15.00,0,60.00,Completed
+S072,2024-05-27,C169,P201,Laptop Pro 15,Electronics,East,Carol White,1,1200.00,5,1140.00,Completed
+S073,2024-05-29,C170,P261,Noise Cancel HP,Electronics,West,David Brown,1,280.00,8,257.60,Completed
+S074,2024-06-01,C171,P262,Smart Display,Electronics,North,Eve Davis,1,250.00,0,250.00,Completed
+S075,2024-06-03,C172,P263,Smart Thermostat,Electronics,South,Frank Miller,1,200.00,10,180.00,Completed
+S076,2024-06-05,C173,P264,Security Camera,Electronics,East,Carol White,2,180.00,5,342.00,Completed
+S077,2024-06-07,C174,P265,Robot Vacuum,Electronics,West,David Brown,1,400.00,0,400.00,Completed
+S078,2024-06-09,C175,P266,Smart Doorbell,Electronics,North,Alice Johnson,1,200.00,5,190.00,Completed
+S079,2024-06-11,C176,P267,Smoke Detector,Electronics,South,Bob Smith,3,50.00,0,150.00,Completed
+S080,2024-06-13,C177,P268,Surge Protector,Electronics,East,Eve Davis,2,45.00,0,90.00,Completed
+S081,2024-06-15,C178,P269,Extension Cord,Electronics,West,Frank Miller,4,22.00,0,88.00,Completed
+S082,2024-06-17,C179,P203,Office Chair,Furniture,North,Alice Johnson,5,350.00,10,1575.00,Completed
+S083,2024-06-19,C180,P270,Whiteboard Mrkr,Furniture,South,Bob Smith,10,12.00,0,120.00,Completed
+S084,2024-06-21,C181,P271,Binder Set 10pk,Furniture,East,Carol White,4,28.00,0,112.00,Completed
+S085,2024-06-23,C182,P272,Paper Shredder,Electronics,West,David Brown,1,180.00,5,171.00,Completed
+S086,2024-06-25,C183,P273,Stamp & Ink Set,Furniture,North,Eve Davis,3,25.00,0,75.00,Completed
+S087,2024-06-27,C184,P206,Monitor 27inch,Electronics,South,Frank Miller,2,400.00,0,800.00,Completed
+S088,2024-06-29,C185,P274,Portable Charger,Electronics,East,Carol White,5,45.00,5,213.75,Completed
+S089,2024-07-01,C186,P275,Bluetooth Spkr,Electronics,West,David Brown,2,120.00,10,216.00,Completed
+S090,2024-07-03,C187,P201,Laptop Pro 15,Electronics,North,Alice Johnson,2,1200.00,5,2280.00,Completed
+S091,2024-07-05,C188,P276,HDMI Cable 6ft,Electronics,South,Bob Smith,6,15.00,0,90.00,Completed
+S092,2024-07-07,C189,P277,4K Capture Card,Electronics,East,Eve Davis,1,200.00,8,184.00,Completed
+S093,2024-07-09,C190,P278,LED Desk Light,Furniture,West,Frank Miller,3,55.00,5,156.75,Completed
+S094,2024-07-11,C191,P279,Pen Tablet S,Electronics,North,Alice Johnson,1,170.00,0,170.00,Completed
+S095,2024-07-13,C192,P280,Numpad BT,Electronics,South,Bob Smith,2,45.00,0,90.00,Completed
+S096,2024-07-15,C193,P209,Headphones BT,Electronics,East,Carol White,3,150.00,5,427.50,Completed
+S097,2024-07-17,C194,P204,Standing Desk,Furniture,West,David Brown,1,600.00,0,600.00,Shipped
+S098,2024-07-19,C195,P281,Keyboard Cover,Electronics,North,Eve Davis,4,18.00,0,72.00,Completed
+S099,2024-07-21,C196,P282,Screen Privacy,Electronics,South,Frank Miller,1,55.00,10,49.50,Completed
+S100,2024-07-23,C197,P283,Cooling Pad,Electronics,East,Carol White,2,40.00,0,80.00,Completed

@@ -1,0 +1,11 @@
+customer_id,first_name,last_name,email,phone,created_at,updated_at,country,segment
+CUST001,John,Doe,john.doe@example.com,1-555-123-4567,2026-01-15 08:30:00,2026-01-15 08:30:00,USA,Premium
+CUST002,Jane,Smith,jane.smith@example.com,1-555-234-5678,2026-01-20 09:15:00,2026-02-10 14:22:00,USA,Standard
+CUST003,Alice,Johnson,alice.j@example.co.uk,44-20-7946-0192,2026-02-01 10:00:00,2026-02-01 10:00:00,UK,Premium
+CUST004,Bob,Brown,bob.brown@example.ca,1-416-555-0198,2026-02-15 11:45:00,2026-02-15 11:45:00,Canada,Standard
+CUST005,Charlie,Davis,charlie.d@example.de,49-30-123456,2026-03-01 13:00:00,2026-03-05 16:30:00,Germany,VIP
+CUST006,Diana,Evans,diana.e@example.com,1-555-345-6789,2026-03-10 15:20:00,2026-03-10 15:20:00,USA,Standard
+CUST007,Evan,Frank,evan.f@example.fr,33-1-4227-7889,2026-03-12 09:00:00,2026-03-12 09:00:00,France,Premium
+CUST008,Fiona,Green,fiona.g@example.com,1-555-456-7890,2026-03-15 10:30:00,2026-03-18 11:15:00,USA,VIP
+CUST009,George,Harris,george.h@example.co.jp,81-3-5555-0143,2026-03-20 16:00:00,2026-03-20 16:00:00,Japan,Standard
+CUST010,Hannah,Ives,hannah.i@example.com,1-555-567-8901,2026-03-25 11:00:00,2026-03-25 11:00:00,USA,Premium

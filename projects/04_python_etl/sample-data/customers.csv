@@ -1,0 +1,9 @@
+customer_id,first_name,last_name,email,country,signup_date,status,total_spent
+CUST-001,John,Doe,john.doe@example.com,USA,2023-01-15,active,1250.50
+CUST-002,Jane,Smith,jane.smith@example.org,Canada,2023-02-20,active,3400.00
+CUST-003,Bob,Johnson,bob.j@example.net,UK,2023-03-10,inactive,450.25
+CUST-004,Alice,Williams,alice.w@example.com,USA,2023-04-05,active,8900.75
+CUST-005,Charlie,Brown,charlie.b@domain.invalid,Germany,2023-05-12,suspended,120.00
+CUST-006,Eva,Green,eva.green@example.fr,France,2023-06-18,active,2100.30
+CUST-007,David,Lee,david.lee@example.co.uk,UK,2023-07-22,active,670.00
+CUST-008,Sophia,Garcia,sophia.g@example.es,Spain,2023-08-30,active,5400.10

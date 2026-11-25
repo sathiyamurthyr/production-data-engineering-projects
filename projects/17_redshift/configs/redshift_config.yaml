@@ -1,0 +1,24 @@
+redshift:
+  host: "redshift-cluster-1.c12345678901.us-east-1.redshift.amazonaws.com"
+  port: 5439
+  database: "dev"
+  user: "awsuser"
+  password: "SecurePassword123!"
+  iam_role_arn: "arn:aws:iam::123456789012:role/RedshiftS3AccessRole"
+  cluster_identifier: "redshift-cluster-1"
+  region: "us-east-1"
+
+s3:
+  bucket_name: "production-data-lake-us-east-1"
+  prefix: "redshift-etl/"
+  region: "us-east-1"
+
+etl:
+  staging_schema: "staging"
+  prod_schema: "core"
+  batch_size: 10000
+
+monitoring:
+  cost_limit_daily: 50.0
+  alarm_email: "data-alerts@enterprise.com"
+  concurrency_scaling_limit_minutes: 60

@@ -1,0 +1,55 @@
+[
+  {
+    "order_id": "ORD-1001",
+    "customer_id": "CUST-001",
+    "order_date": "2023-09-01T10:15:30Z",
+    "status": "COMPLETED",
+    "payment_method": "CREDIT_CARD",
+    "items": [
+      {"product_id": "PROD-001", "quantity": 2, "unit_price": 49.99},
+      {"product_id": "PROD-003", "quantity": 1, "unit_price": 19.95}
+    ]
+  },
+  {
+    "order_id": "ORD-1002",
+    "customer_id": "CUST-002",
+    "order_date": "2023-09-02T14:22:10Z",
+    "status": "COMPLETED",
+    "payment_method": "PAYPAL",
+    "items": [
+      {"product_id": "PROD-002", "quantity": 1, "unit_price": 299.00}
+    ]
+  },
+  {
+    "order_id": "ORD-1003",
+    "customer_id": "CUST-004",
+    "order_date": "2023-09-03T09:05:00Z",
+    "status": "PENDING",
+    "payment_method": "CREDIT_CARD",
+    "items": [
+      {"product_id": "PROD-004", "quantity": 3, "unit_price": 15.50},
+      {"product_id": "PROD-005", "quantity": 1, "unit_price": 89.00}
+    ]
+  },
+  {
+    "order_id": "ORD-1004",
+    "customer_id": "CUST-003",
+    "order_date": "2023-09-04T16:45:12Z",
+    "status": "CANCELLED",
+    "payment_method": "DEBIT_CARD",
+    "items": [
+      {"product_id": "PROD-001", "quantity": 1, "unit_price": 49.99}
+    ]
+  },
+  {
+    "order_id": "ORD-1005",
+    "customer_id": "CUST-006",
+    "order_date": "2023-09-05T11:30:45Z",
+    "status": "COMPLETED",
+    "payment_method": "CREDIT_CARD",
+    "items": [
+      {"product_id": "PROD-002", "quantity": 2, "unit_price": 299.00},
+      {"product_id": "PROD-003", "quantity": 4, "unit_price": 19.95}
+    ]
+  }
+]

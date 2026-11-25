@@ -1,0 +1,11 @@
+order_id,customer_id,order_date,revenue,status,item_category,region,discount
+ORD001,CUST101,2026-07-20 10:00:00,150.50,completed,Electronics,North,15.00
+ORD002,CUST102,2026-07-20 11:15:00,45.00,completed,Apparel,South,0.00
+ORD003,CUST103,2026-07-21 09:30:00,299.99,pending,Electronics,East,30.00
+ORD004,CUST104,2026-07-21 14:45:00,12.50,refunded,Books,West,1.25
+ORD005,CUST105,2026-07-22 08:00:00,85.20,completed,Home,North,5.00
+ORD006,CUST101,2026-07-22 13:20:00,320.00,completed,Electronics,North,32.00
+ORD007,CUST106,2026-07-22 15:10:00,99.99,cancelled,Apparel,South,0.00
+ORD008,CUST107,2026-07-22 16:05:00,15.00,completed,Books,East,0.00
+ORD009,CUST108,2026-07-22 17:50:00,120.00,refunded,Home,West,12.00
+ORD010,CUST109,2026-07-22 18:30:00,250.00,pending,Electronics,South,25.00

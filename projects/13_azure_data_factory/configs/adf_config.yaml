@@ -1,0 +1,72 @@
+# Azure Data Factory Configuration File
+# Environment configurations for development, staging, and production
+
+environment: "dev"
+
+azure:
+  tenant_id: "00000000-0000-0000-0000-000000000000"
+  subscription_id: "00000000-0000-0000-0000-000000000000"
+  resource_group: "rg-data-engineering-dev"
+  location: "eastus"
+  factory_name: "adf-data-engineering-dev"
+
+key_vault:
+  name: "kv-data-eng-dev"
+  url: "https://kv-data-eng-dev.vault.azure.net/"
+  linked_service_name: "KeyVaultLS"
+
+linked_services:
+  adls_gen2:
+    name: "ADLSGen2LS"
+    url: "https://stdataengdev.dfs.core.windows.net"
+    authentication_type: "ManagedIdentity"
+  azure_blob:
+    name: "AzureBlobLS"
+    account_endpoint: "https://stdataengdev.blob.core.windows.net"
+  azure_sql:
+    name: "AzureSqlLS"
+    server: "sql-dataeng-dev.database.windows.net"
+    database: "sqldb-orders-dev"
+    username: "sqladmin"
+    password_secret_name: "sql-admin-password"
+  snowflake:
+    name: "SnowflakeLS"
+    account_url: "https://xy12345.snowflakecomputing.com"
+    database: "PROD_DW"
+    warehouse: "COMPUTE_WH"
+    schema: "PUBLIC"
+    username: "ADF_SERVICE_USER"
+    password_secret_name: "snowflake-service-password"
+
+datasets:
+  parquet_raw:
+    name: "ParquetRawDS"
+    linked_service: "ADLSGen2LS"
+    container: "raw"
+  parquet_gold:
+    name: "ParquetGoldDS"
+    linked_service: "ADLSGen2LS"
+    container: "gold"
+  sql_orders:
+    name: "SqlOrdersDS"
+    linked_service: "AzureSqlLS"
+    schema: "dbo"
+    table: "Orders"
+
+pipelines:
+  copy_blob_to_adls:
+    name: "PL_Copy_BlobToADLS"
+    diu_count: 4
+    parallel_copies: 4
+    retry_count: 3
+    retry_interval_seconds: 30
+  sql_to_parquet:
+    name: "PL_Ingest_Sales_SQL"
+    schema_name: "dbo"
+    table_name: "Orders"
+
+monitoring:
+  poll_interval_seconds: 10
+  timeout_seconds: 600
+  enable_log_analytics: true
+  log_analytics_workspace_id: "00000000-0000-0000-0000-000000000000"
