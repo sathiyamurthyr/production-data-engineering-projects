@@ -144,11 +144,13 @@ production-data-engineering-projects/
 | 18 | [Data Quality](projects/18_data_quality) | Testing and validation | 🚧 Coming Soon |
 | 19 | [Data Governance](projects/19_data_governance) | Compliance and security | 🚧 Coming Soon |
 
-### Expert Level (Project 20)
+### Expert Level (Projects 20-22)
 
 | # | Project | Description | Status |
 |---|---------|-------------|--------|
 | 20 | [Capstone](projects/20_capstone) | End-to-end enterprise solution | 🚧 Coming Soon |
+| 21 | [AI / LLM Data Engineering Pipelines](projects/21_ai_llm_data_pipelines) | RAG ingestion, incremental CDC, PII guardrails, hybrid RRF search, evaluation | ✅ Production Ready |
+| 22 | [Enterprise Data Ontology & Knowledge Graphs](projects/22_data_ontology_knowledge_graphs) | Ontology schema, entity resolution, reasoning, RDF/Cypher & GraphRAG | ✅ Production Ready |
 
 ---
 

@@ -1,0 +1,3 @@
+{"order_id": "ORD-9001", "customer_email": "aarav.sharma@example.com", "sku_ids": ["SKU-001"], "total_amount": 49.99, "status": "COMPLETED", "order_date": "2026-11-20", "txn_id": "TXN-5001", "rail": "UPI", "txn_status": "SUCCESS"}
+{"order_id": "ORD-9002", "customer_email": "priya.nair@example.com", "sku_ids": ["SKU-001", "SKU-002"], "total_amount": 248.99, "status": "COMPLETED", "order_date": "2026-11-21", "txn_id": "TXN-5002", "rail": "CARD", "txn_status": "SUCCESS"}
+{"order_id": "ORD-9003", "customer_email": "rohan.verma@example.com", "sku_ids": ["SKU-002"], "total_amount": 199.00, "status": "PENDING", "order_date": "2026-11-22", "txn_id": "TXN-5003", "rail": "IMPS", "txn_status": "PENDING"}

@@ -1,0 +1,44 @@
+# Project 21: AI / LLM Data Engineering Pipeline Configuration
+version: "1.0"
+environment: "production"
+
+pipeline:
+  name: "enterprise_rag_ingestion"
+  state_db_path: "output/rag_pipeline_state.sqlite"
+  audit_log_path: "output/pipeline_audit.jsonl"
+  quarantine_path: "output/quarantined_docs.jsonl"
+
+ingestion:
+  supported_extensions: [".md", ".txt", ".jsonl", ".csv"]
+  default_acl_group: "engineering"
+
+quality:
+  min_chars: 40
+  max_chars: 50000
+  pii_redaction:
+    enabled: true
+    quarantine_on_secret: true
+  deduplication:
+    enabled: true
+    shingle_size: 3
+    jaccard_threshold: 0.85
+
+chunking:
+  strategy: "markdown_aware" # "fixed" | "markdown_aware"
+  max_tokens: 180
+  overlap_tokens: 30
+  min_chunk_tokens: 15
+
+embeddings:
+  provider: "local_deterministic" # "local_deterministic" | "openai_compatible"
+  model_name: "text-embedding-3-small"
+  dimensions: 128
+  batch_size: 16
+  max_retries: 3
+  cost_per_1m_tokens_usd: 0.02
+
+retrieval:
+  default_top_k: 5
+  hybrid_alpha: 0.65 # Weight for vector vs lexical in weighted mode
+  rrf_k: 60
+  mode: "hybrid_rrf" # "vector" | "lexical" | "hybrid_rrf"

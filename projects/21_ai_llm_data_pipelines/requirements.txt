@@ -1,0 +1,3 @@
+# Production dependencies for AI / LLM Data Engineering Pipelines
+PyYAML>=6.0.0
+pytest>=8.0.0

@@ -92,6 +92,10 @@ datasets/processed/
 *.parquet
 *.csv
 !datasets/sample-data/
+!projects/*/sample-data/*.csv
+*.sqlite
+*.db
+projects/*/output/
 
 # Logs
 logs/
