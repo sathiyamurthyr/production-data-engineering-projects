@@ -1,0 +1,67 @@
+# Apache Kafka Production Configuration File
+# Project 09: Apache Kafka for Real-Time Data Engineering
+
+environment: "production"
+
+bootstrap_servers:
+  dev: "localhost:9092"
+  staging: "kafka-staging-1:9092,kafka-staging-2:9092"
+  prod: "kafka-prod-1.corp:9092,kafka-prod-2.corp:9092,kafka-prod-3.corp:9092"
+
+schema_registry:
+  url: "http://localhost:8081"
+  compatibility_level: "BACKWARD"
+
+producer:
+  client_id: "de-diaries-producer"
+  acks: "all"
+  enable_idempotence: true
+  compression_type: "lz4"
+  batch_size: 65536
+  linger_ms: 10
+  buffer_memory: 33554432
+  max_in_flight_requests_per_connection: 5
+  retries: 2147483647
+  retry_backoff_ms: 100
+  request_timeout_ms: 30000
+
+consumer:
+  group_id: "analytics-consumer-group"
+  auto_offset_reset: "earliest"
+  enable_auto_commit: false
+  max_poll_records: 500
+  max_poll_interval_ms: 300000
+  session_timeout_ms: 45000
+  heartbeat_interval_ms: 15000
+  partition_assignment_strategy: "cooperative-sticky"
+
+topics:
+  sales_events:
+    name: "sales-events"
+    partitions: 6
+    replication_factor: 3
+    config:
+      retention.ms: "604800000" # 7 days
+      cleanup.policy: "delete"
+      min.insync.replicas: "2"
+  user_clicks:
+    name: "user-clicks"
+    partitions: 3
+    replication_factor: 3
+    config:
+      retention.ms: "259200000" # 3 days
+      cleanup.policy: "delete"
+  iot_readings:
+    name: "iot-readings"
+    partitions: 12
+    replication_factor: 3
+    config:
+      retention.ms: "86400000" # 1 day
+      cleanup.policy: "delete"
+  cdc_users:
+    name: "cdc-user-updates"
+    partitions: 3
+    replication_factor: 3
+    config:
+      cleanup.policy: "compact"
+      min.cleanable.dirty.ratio: "0.5"

@@ -1,0 +1,12 @@
+environment: production
+pipeline:
+  name: sales_etl_pipeline
+  version: 1.0.0
+  batch_size: 1000
+  retry:
+    max_attempts: 3
+    backoff: 2.0
+paths:
+  raw_sales: datasets/raw_sales.csv
+  raw_users: datasets/raw_users.json
+  db_path: datasets/sample_employees.sqlite

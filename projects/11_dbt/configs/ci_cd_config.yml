@@ -1,0 +1,72 @@
+name: dbt Analytics Engineering CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  dbt_slim_ci:
+    name: Execute dbt Slim CI Pipeline
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ci_analytics_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install dbt-core==1.7.0 dbt-postgres==1.7.0 pytest
+
+      - name: Configure dbt Profiles
+        run: |
+          mkdir -p ~/.dbt
+          cp src/dbt_project/profiles.yml.template ~/.dbt/profiles.yml
+
+      - name: Install dbt Packages
+        run: |
+          cd src/dbt_project
+          dbt deps
+
+      - name: Seed Reference Data
+        run: |
+          cd src/dbt_project
+          dbt seed --target ci
+
+      - name: Execute dbt Models
+        run: |
+          cd src/dbt_project
+          dbt run --target ci
+
+      - name: Execute dbt Data Quality Tests
+        run: |
+          cd src/dbt_project
+          dbt test --target ci
+
+      - name: Validate Artifacts & Docs Generation
+        run: |
+          cd src/dbt_project
+          dbt docs generate --target ci
+          python ../scripts/validate_dbt_artifacts.py

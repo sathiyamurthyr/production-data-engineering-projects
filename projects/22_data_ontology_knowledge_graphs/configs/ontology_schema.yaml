@@ -1,0 +1,107 @@
+# Project 22: Enterprise Data Ontology & Knowledge Graph Schema
+version: "1.0.0"
+namespace: "urn:de:ontology:"
+
+storage:
+  graph_db_path: "output/knowledge_graph.sqlite"
+  audit_log_path: "output/ontology_pipeline_audit.jsonl"
+
+classes:
+  LegalEntity:
+    description: "Abstract base entity representing any contracting party."
+    abstract: true
+    primary_key: "entity_id"
+    properties:
+      entity_id: { type: "string", required: true }
+      display_name: { type: "string", required: true }
+      country: { type: "string", required: false, default: "IN" }
+
+  Customer:
+    parent: "LegalEntity"
+    description: "Individual or business buyer placing orders."
+    primary_key: "entity_id"
+    properties:
+      entity_id: { type: "string", required: true }
+      display_name: { type: "string", required: true }
+      email: { type: "string", required: true }
+      tier: { type: "string", required: false, allowed_values: ["BRONZE", "SILVER", "GOLD", "PLATINUM"], default: "BRONZE" }
+      country: { type: "string", required: false, default: "IN" }
+
+  Merchant:
+    parent: "LegalEntity"
+    description: "Verified seller or retail partner fulfilling orders."
+    primary_key: "entity_id"
+    properties:
+      entity_id: { type: "string", required: true }
+      display_name: { type: "string", required: true }
+      mcc_code: { type: "string", required: true }
+      risk_rating: { type: "string", required: false, allowed_values: ["LOW", "MEDIUM", "HIGH"], default: "LOW" }
+      country: { type: "string", required: false, default: "IN" }
+
+  Product:
+    description: "Catalog SKU offered by merchants."
+    primary_key: "sku_id"
+    properties:
+      sku_id: { type: "string", required: true }
+      name: { type: "string", required: true }
+      category: { type: "string", required: true }
+      unit_price: { type: "number", required: true }
+
+  Order:
+    description: "Commercial purchase order placed by a customer."
+    primary_key: "order_id"
+    properties:
+      order_id: { type: "string", required: true }
+      total_amount: { type: "number", required: true }
+      status: { type: "string", required: true, allowed_values: ["PENDING", "COMPLETED", "CANCELLED", "REFUNDED"] }
+      order_date: { type: "string", required: true }
+
+  PaymentTransaction:
+    description: "Settlement or payment attempt linked to an order."
+    primary_key: "txn_id"
+    properties:
+      txn_id: { type: "string", required: true }
+      amount: { type: "number", required: true }
+      rail: { type: "string", required: true, allowed_values: ["UPI", "CARD", "NEFT", "IMPS"] }
+      status: { type: "string", required: true, allowed_values: ["SUCCESS", "FAILED", "PENDING"] }
+
+relationships:
+  PLACED_ORDER:
+    domain: "Customer"
+    range: "Order"
+    cardinality: "1:N"
+    inverse: "PLACED_BY"
+    transitive: false
+    description: "Links a customer to the commercial orders they placed."
+
+  CONTAINS_PRODUCT:
+    domain: "Order"
+    range: "Product"
+    cardinality: "N:M"
+    inverse: "ORDERED_IN"
+    transitive: false
+    description: "Links an order to the catalog products purchased."
+
+  SOLD_BY:
+    domain: "Product"
+    range: "Merchant"
+    cardinality: "N:1"
+    inverse: "SELLS_PRODUCT"
+    transitive: false
+    description: "Links a product SKU to its merchant."
+
+  SETTLED_BY:
+    domain: "Order"
+    range: "PaymentTransaction"
+    cardinality: "1:N"
+    inverse: "SETTLES_ORDER"
+    transitive: false
+    description: "Links an order to its payment transaction attempts."
+
+  SUBSIDIARY_OF:
+    domain: "LegalEntity"
+    range: "LegalEntity"
+    cardinality: "N:1"
+    inverse: "PARENT_OF"
+    transitive: true
+    description: "Corporate ownership hierarchy supporting transitive rollup."

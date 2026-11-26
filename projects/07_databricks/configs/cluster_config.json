@@ -1,0 +1,26 @@
+{
+  "cluster_name": "prod_medallion_etl_cluster",
+  "spark_version": "14.3.x-scala2.12",
+  "node_type_id": "Standard_D8s_v3",
+  "driver_node_type_id": "Standard_D8s_v3",
+  "autoscale": {
+    "min_workers": 2,
+    "max_workers": 16
+  },
+  "autotermination_minutes": 30,
+  "enable_elastic_disk": true,
+  "data_security_mode": "SINGLE_USER",
+  "runtime_engine": "PHOTON",
+  "spark_conf": {
+    "spark.sql.adaptive.enabled": "true",
+    "spark.sql.adaptive.skewJoin.enabled": "true",
+    "spark.databricks.io.cache.enabled": "true",
+    "spark.databricks.photon.enabled": "true"
+  },
+  "custom_tags": {
+    "Environment": "Production",
+    "CostCenter": "CC-1001",
+    "Owner": "data-engineering-team@company.com",
+    "Project": "Project07_Databricks"
+  }
+}

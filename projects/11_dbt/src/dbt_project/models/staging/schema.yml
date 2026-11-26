@@ -1,0 +1,122 @@
+version: 2
+
+sources:
+  - name: ecom_raw
+    description: "Raw landing database containing untransformed operational transactions."
+    database: analytics_db
+    schema: raw
+    tables:
+      - name: raw_customers
+        description: "Raw customer master table."
+        columns:
+          - name: id
+            description: "Primary key natural customer ID."
+            tests:
+              - not_null
+              - unique
+      - name: raw_orders
+        description: "Raw order transaction headers."
+        columns:
+          - name: id
+            description: "Primary key natural order ID."
+            tests:
+              - not_null
+              - unique
+      - name: raw_products
+        description: "Raw product catalog database."
+        columns:
+          - name: id
+            description: "Primary key natural product ID."
+            tests:
+              - not_null
+              - unique
+      - name: raw_events
+        description: "Raw web event stream records."
+        columns:
+          - name: id
+            description: "Primary key natural event ID."
+            tests:
+              - not_null
+              - unique
+
+models:
+  - name: stg_customers
+    description: "Staged customer records with cleansed email strings and surrogate keys."
+    columns:
+      - name: customer_key
+        description: "Hashed surrogate primary key."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Natural source customer identifier."
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: "Lowercase, trimmed customer email address."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_value_lengths_to_be_between:
+              min_value: 5
+              max_value: 255
+
+  - name: stg_orders
+    description: "Staged order transactions with sanitized status and decimal types."
+    columns:
+      - name: order_key
+        description: "Hashed surrogate primary key."
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Natural source order identifier."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key referencing natural customer ID."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: order_status
+        description: "Current order lifecycle status."
+        tests:
+          - accepted_values:
+              values: ['completed', 'shipped', 'processing', 'cancelled', 'refunded']
+
+  - name: stg_products
+    description: "Staged product catalog with unit pricing and category keys."
+    columns:
+      - name: product_key
+        description: "Hashed surrogate primary key."
+        tests:
+          - unique
+          - not_null
+      - name: product_id
+        description: "Natural source product identifier."
+        tests:
+          - unique
+          - not_null
+      - name: unit_price
+        description: "Retail selling unit price."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+
+  - name: stg_events
+    description: "Staged web clickstream behavioral event logs."
+    columns:
+      - name: event_key
+        description: "Hashed surrogate primary key."
+        tests:
+          - unique
+          - not_null
+      - name: event_type
+        description: "Categorical event type identifier."
+        tests:
+          - accepted_values:
+              values: ['page_view', 'add_to_cart', 'checkout', 'search', 'logout']

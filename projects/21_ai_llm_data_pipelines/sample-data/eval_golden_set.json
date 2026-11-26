@@ -1,0 +1,26 @@
+[
+  {
+    "query_id": "q1",
+    "query": "How do I fix Spark OutOfMemoryError and straggler tasks caused by data skew?",
+    "acl_groups": ["engineering"],
+    "expected_doc_ids": ["spark_skew_playbook.md"]
+  },
+  {
+    "query_id": "q2",
+    "query": "What happens in the Bronze, Silver, and Gold medallion layers?",
+    "acl_groups": ["engineering"],
+    "expected_doc_ids": ["lakehouse_runbook.md"]
+  },
+  {
+    "query_id": "q3",
+    "query": "How should we reduce Snowflake idle compute costs and use Dynamic Tables?",
+    "acl_groups": ["engineering"],
+    "expected_doc_ids": ["snowflake_cost_guide.md"]
+  },
+  {
+    "query_id": "q4",
+    "query": "How should Kafka consumers handle deserialization failures without blocking offsets?",
+    "acl_groups": ["engineering"],
+    "expected_doc_ids": ["faq_kafka_dlq"]
+  }
+]

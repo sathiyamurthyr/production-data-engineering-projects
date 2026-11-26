@@ -1,0 +1,6 @@
+id,customer_name,email,phone,ssn,credit_card,signup_date,country
+1,Alice Smith,alice.smith@example.com,+1-555-0199,123-45-6789,1111-2222-3333-4444,2023-01-15,USA
+2,Bob Jones,bob.jones@worksite.org,555-0143,987-65-4321,5555-6666-7777-8888,2024-05-12,Canada
+3,Charlie Brown,charlie.b@gmail.com,+1 (555) 0188,456-78-9012,,2022-11-30,USA
+4,Diana Prince,diana.prince@amazon.com,,789-01-2345,9999-8888-7777-6666,2025-02-14,USA
+5,Evan Wright,evan.wright@example.net,555-0122,,,2023-08-20,UK

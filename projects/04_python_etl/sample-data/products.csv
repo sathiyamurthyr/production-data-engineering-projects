@@ -1,0 +1,6 @@
+product_id,product_name,category,price,stock_quantity
+PROD-001,Wireless Ergonomic Mouse,Electronics,49.99,150
+PROD-002,Mechanical Gaming Keyboard,Electronics,299.00,45
+PROD-003,USB-C Hub Multiport Adapter,Electronics,19.95,300
+PROD-004,Stainless Steel Water Bottle,Home & Accessories,15.50,500
+PROD-005,Noise Cancelling Headphones,Electronics,89.00,80

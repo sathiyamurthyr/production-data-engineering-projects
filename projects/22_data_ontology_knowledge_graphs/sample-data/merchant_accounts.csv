@@ -1,0 +1,4 @@
+merchant_id,merchant_name,mcc_code,risk_rating,country,parent_merchant_id
+m_parent,Apex Retail Group,5411,LOW,IN,
+m_sub1,Apex Fresh Mart,5411,LOW,IN,m_parent
+m_sub2,Apex Express Delivery,4215,MEDIUM,IN,m_sub1

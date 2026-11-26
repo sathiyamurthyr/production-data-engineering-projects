@@ -1,0 +1,7 @@
+datamart_profile:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: 'd:/engineering-projects/production-data-engineering-projects/projects/20_capstone/data/dbt_analytics.duckdb'
+      threads: 2

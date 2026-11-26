@@ -1,0 +1,38 @@
+# dbt Profiles Template for Local Dev, CI/CD, and Production Environments
+# Copy this file to ~/.dbt/profiles.yml and update credentials as required.
+
+production_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('DBT_POSTGRES_HOST', 'localhost') }}"
+      port: 5432
+      user: "{{ env_var('DBT_POSTGRES_USER', 'postgres') }}"
+      password: "{{ env_var('DBT_POSTGRES_PASSWORD', 'postgres') }}"
+      dbname: "{{ env_var('DBT_POSTGRES_DB', 'analytics_db') }}"
+      schema: "dbt_dev_{{ env_var('USER', 'dev') }}"
+      threads: 4
+      keepalives_idle: 0
+
+    ci:
+      type: postgres
+      host: "{{ env_var('CI_POSTGRES_HOST', 'localhost') }}"
+      port: 5432
+      user: "{{ env_var('CI_POSTGRES_USER', 'postgres') }}"
+      password: "{{ env_var('CI_POSTGRES_PASSWORD', 'postgres') }}"
+      dbname: "{{ env_var('CI_POSTGRES_DB', 'ci_analytics_db') }}"
+      schema: "dbt_ci_{{ env_var('GITHUB_RUN_ID', '1') }}"
+      threads: 8
+      keepalives_idle: 0
+
+    prod:
+      type: postgres
+      host: "{{ env_var('PROD_POSTGRES_HOST', 'prod-db.internal') }}"
+      port: 5432
+      user: "{{ env_var('PROD_POSTGRES_USER', 'dbt_prod_runner') }}"
+      password: "{{ env_var('PROD_POSTGRES_PASSWORD', 'secret') }}"
+      dbname: "{{ env_var('PROD_POSTGRES_DB', 'production_db') }}"
+      schema: "public"
+      threads: 8
+      keepalives_idle: 0

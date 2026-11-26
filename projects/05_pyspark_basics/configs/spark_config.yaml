@@ -1,0 +1,24 @@
+app:
+  name: "PySparkBasicsETLPipeline"
+  environment: "local"
+
+spark_config:
+  spark.master: "local[*]"
+  spark.sql.shuffle.partitions: 4
+  spark.sql.adaptive.enabled: true
+  spark.sql.adaptive.coalescePartitions.enabled: true
+  spark.sql.adaptive.skewJoin.enabled: true
+  spark.driver.memory: "2g"
+  spark.executor.memory: "2g"
+
+paths:
+  raw_sales_csv: "sample-data/sales_data.csv"
+  raw_events_json: "sample-data/customer_events.json"
+  raw_products_csv: "sample-data/product_catalog.csv"
+  output_processed_sales: "output/processed_sales_parquet"
+  output_category_summary: "output/category_summary_parquet"
+  output_quarantine: "output/quarantine_records"
+
+pipeline:
+  min_order_amount: 0.0
+  valid_statuses: ["Completed", "Shipped"]

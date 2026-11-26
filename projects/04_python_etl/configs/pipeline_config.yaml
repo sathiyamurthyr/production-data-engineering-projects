@@ -1,0 +1,74 @@
+pipeline:
+  name: "ecommerce_etl_pipeline"
+  version: "1.0.0"
+  environment: "development"
+  log_level: "INFO"
+  log_file: "logs/pipeline.log"
+
+extractors:
+  customers_csv:
+    type: "csv"
+    path: "sample-data/customers.csv"
+    encoding: "utf-8"
+    delimiter: ","
+    chunk_size: 1000
+  orders_json:
+    type: "json"
+    path: "sample-data/orders.json"
+    orient: "records"
+  products_csv:
+    type: "csv"
+    path: "sample-data/products.csv"
+    encoding: "utf-8"
+    delimiter: ","
+  exchange_rates_api:
+    type: "api"
+    url: "https://api.exchangerate-api.com/v4/latest/USD"
+    timeout_seconds: 10
+    max_retries: 3
+    retry_delay_seconds: 2
+    mock_response:
+      base: "USD"
+      rates:
+        USD: 1.0
+        EUR: 0.92
+        GBP: 0.79
+        CAD: 1.35
+
+transformers:
+  cleaning:
+    trim_strings: true
+    lowercase_headers: true
+    drop_null_columns: ["customer_id", "order_id"]
+    default_fill_values:
+      status: "unknown"
+      total_spent: 0.0
+  validation:
+    email_regex: "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
+    allowed_order_statuses: ["COMPLETED", "PENDING", "PROCESSING", "CANCELLED", "SHIPPED"]
+    min_price: 0.0
+    dlq_path: "output/dead_letter_queue.json"
+  enrichment:
+    base_currency: "USD"
+    tax_rate: 0.08
+    customer_tier_thresholds:
+      vip: 5000.0
+      gold: 1000.0
+      silver: 200.0
+
+loaders:
+  processed_customers_parquet:
+    type: "parquet"
+    path: "output/customers_processed.parquet"
+    compression: "snappy"
+  processed_orders_csv:
+    type: "csv"
+    path: "output/orders_processed.csv"
+    index: false
+  sqlite_db:
+    type: "database"
+    connection_string: "sqlite:///output/etl_warehouse.db"
+    tables:
+      customers: "dim_customers"
+      orders: "fact_orders"
+      summary: "agg_daily_sales"

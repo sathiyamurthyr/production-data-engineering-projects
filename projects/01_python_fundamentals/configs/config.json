@@ -1,0 +1,9 @@
+{
+  "environment": "production",
+  "batch_size": 1000,
+  "retry_attempts": 3,
+  "backoff_factor": 2.0,
+  "input_path": "datasets/raw_sales.csv",
+  "quarantine_path": "datasets/invalid_records.csv",
+  "output_dir": "output/"
+}

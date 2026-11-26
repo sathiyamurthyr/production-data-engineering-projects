@@ -1,0 +1,12 @@
+asset_id,database_name,schema_name,table_name,column_name,data_type,description,owner,business_domain
+1,prod_dw,sales,orders,order_id,INTEGER,Primary key of the order,Sales Team,Financial
+2,prod_dw,sales,orders,customer_id,INTEGER,Foreign key referencing customers table,Sales Team,Financial
+3,prod_dw,sales,orders,order_amount,DECIMAL,Total financial value of the order,Sales Team,Financial
+4,prod_dw,customers,users,id,INTEGER,Primary key of user table,Identity Team,Customer
+5,prod_dw,customers,users,customer_name,VARCHAR,Full name of the user,Identity Team,Customer
+6,prod_dw,customers,users,email,VARCHAR,Email address of the user,Identity Team,Customer
+7,prod_dw,customers,users,phone,VARCHAR,Phone number of the user,Identity Team,Customer
+8,prod_dw,customers,users,ssn,VARCHAR,Social Security Number of the user,Identity Team,Customer
+9,prod_dw,customers,users,credit_card,VARCHAR,Primary credit card tokenized,Identity Team,Customer
+10,prod_dw,analytics,user_behavior,session_id,VARCHAR,Web session identifier,Analytics Team,Operations
+11,prod_dw,analytics,user_behavior,ip_address,VARCHAR,User IP address,Analytics Team,Operations

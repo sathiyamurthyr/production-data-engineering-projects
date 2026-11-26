@@ -1,0 +1,51 @@
+# Snowflake Data Engineering Configuration
+connection:
+  account: "${SNOWFLAKE_ACCOUNT:xy12345.us-east-1}"
+  user: "${SNOWFLAKE_USER:DE_ADMIN}"
+  password: "${SNOWFLAKE_PASSWORD:SuperSecretPassword123!}"
+  warehouse: "${SNOWFLAKE_WAREHOUSE:COMPUTE_WH}"
+  database: "${SNOWFLAKE_DATABASE:DATA_ENG_DB}"
+  schema: "${SNOWFLAKE_SCHEMA:PUBLIC}"
+  role: "${SNOWFLAKE_ROLE:SYSADMIN}"
+  authenticator: "snowflake"
+
+environments:
+  dev:
+    database: "DEV_DATA_ENG_DB"
+    warehouse: "DEV_WH"
+    data_retention_days: 1
+    transient_tables: true
+  staging:
+    database: "STAGING_DATA_ENG_DB"
+    warehouse: "STAGING_WH"
+    data_retention_days: 7
+    transient_tables: false
+  prod:
+    database: "PROD_DATA_ENG_DB"
+    warehouse: "PROD_WH"
+    data_retention_days: 90
+    transient_tables: false
+
+stages:
+  internal_stage: "DATA_ENG_DB.PUBLIC.RAW_INTERNAL_STAGE"
+  external_stage: "DATA_ENG_DB.PUBLIC.S3_RAW_STAGE"
+  file_formats:
+    csv_format: "CSV_HEADER_FORMAT"
+    json_format: "JSON_STRIP_ARRAY_FORMAT"
+    parquet_format: "PARQUET_SNAPPY_FORMAT"
+
+pipelines:
+  sales_etl:
+    source_stage: "@RAW_INTERNAL_STAGE"
+    staging_table: "STG_SALES"
+    target_table: "FACT_SALES"
+    stream_name: "STG_SALES_STREAM"
+    task_name: "PROCESS_SALES_STREAM_TASK"
+    schedule_cron: "USING CRON 0 * * * * UTC"
+  customer_etl:
+    source_stage: "@RAW_INTERNAL_STAGE"
+    staging_table: "STG_CUSTOMERS"
+    target_table: "DIM_CUSTOMERS"
+    stream_name: "STG_CUSTOMERS_STREAM"
+    task_name: "PROCESS_CUSTOMERS_STREAM_TASK"
+    schedule_cron: "USING CRON 30 * * * * UTC"

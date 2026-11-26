@@ -1,0 +1,83 @@
+{
+  "name": "PL_Copy_BlobToADLS",
+  "properties": {
+    "description": "Standard Copy Activity pipeline transferring raw CSV files to Parquet ADLS Gen2 Gold layer",
+    "parameters": {
+      "SourceContainer": {
+        "type": "String",
+        "defaultValue": "raw"
+      },
+      "SourceFolderPath": {
+        "type": "String",
+        "defaultValue": "incoming/sales"
+      },
+      "SinkContainer": {
+        "type": "String",
+        "defaultValue": "gold"
+      },
+      "SinkFolderPath": {
+        "type": "String",
+        "defaultValue": "curated/sales"
+      }
+    },
+    "activities": [
+      {
+        "name": "CopyBlobToADLS",
+        "type": "Copy",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.04:00:00",
+          "retry": 3,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings",
+              "recursive": true,
+              "wildcardFileName": "*.csv"
+            },
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings"
+            }
+          },
+          "sink": {
+            "type": "ParquetSink",
+            "storeSettings": {
+              "type": "AzureBlobFSWriteSettings"
+            },
+            "formatSettings": {
+              "type": "ParquetWriteSettings"
+            }
+          },
+          "enableStaging": false,
+          "dataIntegrationUnits": 8,
+          "parallelCopies": 4
+        },
+        "inputs": [
+          {
+            "referenceName": "CsvSourceDS",
+            "type": "DatasetReference",
+            "parameters": {
+              "Container": "@pipeline().parameters.SourceContainer",
+              "FolderPath": "@pipeline().parameters.SourceFolderPath"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "ParquetSinkDS",
+            "type": "DatasetReference",
+            "parameters": {
+              "Container": "@pipeline().parameters.SinkContainer",
+              "FolderPath": "@pipeline().parameters.SinkFolderPath"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

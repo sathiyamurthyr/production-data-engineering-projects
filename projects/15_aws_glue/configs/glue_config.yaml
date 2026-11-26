@@ -1,0 +1,44 @@
+# Production AWS Glue ETL Configuration
+aws:
+  region: "us-east-1"
+  role_arn: "arn:aws:iam::123456789012:role/AWSGlueServiceRole-DataEngineeringDiaries"
+  s3_bucket: "data-engineering-diaries-glue-demo"
+
+glue_catalog:
+  database_name: "ecommerce_db"
+  raw_table: "raw_sales"
+  processed_table: "processed_sales"
+  raw_s3_path: "s3://data-engineering-diaries-glue-demo/raw/sales/"
+  processed_s3_path: "s3://data-engineering-diaries-glue-demo/processed/sales/"
+
+crawler:
+  name: "ecommerce_sales_crawler"
+  description: "Crawler for raw ecommerce sales data in S3"
+  schedule: "cron(0 1 * * ? *)" # Run daily at 1:00 AM UTC
+  table_prefix: "raw_"
+
+etl_job:
+  name: "ecommerce_sales_etl"
+  role: "arn:aws:iam::123456789012:role/AWSGlueServiceRole-DataEngineeringDiaries"
+  glue_version: "4.0"
+  worker_type: "G.1X"
+  number_of_workers: 2
+  max_retries: 0
+  timeout_minutes: 60
+  default_arguments:
+    "--job-bookmark-option": "job-bookmark-enable"
+    "--enable-metrics": "true"
+    "--enable-continuous-cloudwatch-log": "true"
+    "--enable-spark-ui": "true"
+    "--spark-event-logs-path": "s3://data-engineering-diaries-glue-demo/spark-history-logs/"
+    "--TempDir": "s3://data-engineering-diaries-glue-demo/temporary/"
+    "--extra-py-files": "s3://data-engineering-diaries-glue-demo/scripts/dynamic_frame_ops.py,s3://data-engineering-diaries-glue-demo/scripts/s3_integration.py"
+
+data_quality:
+  ruleset_name: "ecommerce_sales_dq_ruleset"
+  rules:
+    - "Rules = [ RowCount > 0, ColumnCount == 8, ColumnExists \"order_id\", IsComplete \"order_id\", ColumnDataType \"order_id\" = \"String\", IsComplete \"customer_id\", ColumnDataType \"revenue\" = \"Double\", ColumnValues \"status\" in [\"completed\", \"pending\", \"cancelled\", \"refunded\"] ]"
+
+monitoring:
+  sns_topic_arn: "arn:aws:sns:us-east-1:123456789012:GlueJobAlerts"
+  cloudwatch_namespace: "AWSGlueDataEngineering"
